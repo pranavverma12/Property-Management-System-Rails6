@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
+  attr_accessor :tenant_email
 
   PROPERTY_NAME_MAX_LENGTH = 100
   PROPERTY_ADDRESS_MAX_LENGTH = 500
@@ -34,4 +35,6 @@ class Property < ApplicationRecord
                              if: -> { errors[:landlord_email].blank? }
 
   belongs_to :landlords, :class_name => "Landlord", :primary_key => "email", foreign_key: 'landlord_email'
+
+  has_many :tenants, :class_name => "Tenant", foreign_key: 'property_id'
 end

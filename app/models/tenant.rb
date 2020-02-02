@@ -30,6 +30,8 @@ class Tenant < ApplicationRecord
   validates :last_name, number_of_lines: { maximum: 1 },
                         if: -> { errors[:last_name].blank? }
 
+  belongs_to :property, optional: true, :class_name => "Property", foreign_key: 'property_id'
+
   private
 
   def strip_whitespace

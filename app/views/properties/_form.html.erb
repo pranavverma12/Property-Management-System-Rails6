@@ -58,11 +58,80 @@
   <div class="field">
     <%= form.label :landlord_email %>
 
-    <%#= form.text_field :landlord_email %>
     <%= form.select :landlord_email, options_for_select(landlords_email_list, property.landlord_email.to_s) %>
 
     <% if property.errors[:landlord_email] %>
       <% property.errors[:landlord_email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenant_email %>
+
+    <%= form.select :tenant_email, tenants_email_list, :prompt => !property.tenants.empty? ? property.tenants.first.email : "-- Select --"%>
+
+    <% if property.errors[:tenant_email] %>
+      <% property.errors[:tenant_email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_start_date %>
+
+    <%= form.date_field :tenancy_start_date, as: :date, value: form.object.try(:strftime,"%m/%d/%Y") %>    
+
+    <% if property.errors[:tenancy_start_date] %>
+      <% property.errors[:tenancy_start_date].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_monthly_rent %>
+
+    <%= form.number_field :tenancy_monthly_rent %>    
+
+    <% if property.errors[:tenancy_monthly_rent] %>
+      <% property.errors[:tenancy_monthly_rent].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_security_deposit %>
+
+    <%= form.number_field :tenancy_security_deposit %>
+
+    <% if property.errors[:tenancy_security_deposit] %>
+      <% property.errors[:tenancy_security_deposit].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rented %>
+
+    <%= form.check_box :rented %>
+
+    <% if property.errors[:rented] %>
+      <% property.errors[:rented].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>

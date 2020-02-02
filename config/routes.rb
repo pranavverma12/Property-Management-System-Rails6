@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :tenants
   resources :users
 
-  resources :properties
+  resources :properties do
+    get 'unrent' => 'properties#unrent', on: :member
+  end
 
   controller :sessions do
     get 'login' => :new, as: :login

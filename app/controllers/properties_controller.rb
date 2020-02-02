@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PropertiesController < ApplicationController
-  before_action :set_property, only: %i[show edit update destroy]
+  before_action :set_property, only: %i[show edit update destroy unrent]
 
   def index
     @properties = Property.all
@@ -13,7 +13,7 @@ class PropertiesController < ApplicationController
     @property = Property.new
   end
 
-  def edit; end
+  def edit;end
 
   def create
     @property = Property.new(property_params)
@@ -28,6 +28,13 @@ class PropertiesController < ApplicationController
 
   def update
     if @property.update(property_params)
+      if params[:property][:tenant_email] != ""
+        tenant = Tenant.find_by(email: params[:property][:tenant_email])
+        if !tenant.nil?
+          @property.update(tenant_id: tenant.id, rented: true)
+          tenant.update(property_id: @property.id)
+        end
+      end
       flash[:success] = 'Property was successfully updated.'
       redirect_to @property
     else
@@ -39,6 +46,14 @@ class PropertiesController < ApplicationController
     @property.destroy
 
     redirect_to properties_url, notice: 'Property was successfully destroyed.'
+  end
+
+  def unrent
+    @property.update(tenancy_start_date: nil , tenancy_security_deposit: nil, tenancy_monthly_rent: nil, rented: false,
+    tenant_id: nil)
+    @property.tenants.first.update(property_id: nil)   
+    flash[:success] = 'Property was successfully unrented.'
+    redirect_to @property
   end
 
   private
@@ -53,7 +68,12 @@ class PropertiesController < ApplicationController
       :property_address,
       :landlord_first_name,
       :landlord_last_name,
-      :landlord_email
+      :landlord_email,
+      :tenancy_start_date,
+      :tenancy_security_deposit,
+      :tenancy_monthly_rent,
+      :rented,
+      :tenant_id
     )
   end
 end

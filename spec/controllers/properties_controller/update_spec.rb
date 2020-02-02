@@ -6,6 +6,7 @@ RSpec.describe PropertiesController, type: :controller do
   let(:current_user) { create(:user) }
   let(:session) { { user_id: current_user.id } }
   let(:landlord) { create(:landlord) }
+  let(:tenant) { create(:tenant) }
   let(:params) { {} }
 
   describe 'PUT #update' do
@@ -21,25 +22,34 @@ RSpec.describe PropertiesController, type: :controller do
           property_address: 'somepropertyaddress',
           landlord_first_name: landlord.first_name,
           landlord_last_name: landlord.last_name,
-          landlord_email: landlord.email
+          landlord_email: landlord.email,
+          tenancy_start_date: "02/02/2020".to_date,
+          tenancy_monthly_rent: 1500,
+          tenancy_security_deposit: 3000,
+          tenant_id: 1
         }
       end
       let(:params) { { id: property.id, property: valid_property_attributes } }
 
       it 'assigns @property' do
+        tenant.reload
         subject
         expect(assigns(:property)).to be_a Property
       end
 
       it 'updates the Property' do
+        tenant.reload
         subject
-
         property.reload
         expect(property.property_name).to eq valid_property_attributes[:property_name]
         expect(property.property_address).to eq valid_property_attributes[:property_address]
         expect(property.landlord_first_name).to eq valid_property_attributes[:landlord_first_name]
         expect(property.landlord_last_name).to eq valid_property_attributes[:landlord_last_name]
         expect(property.landlord_email).to eq valid_property_attributes[:landlord_email]
+        expect(property.tenancy_start_date).to eq valid_property_attributes[:tenancy_start_date]
+        expect(property.tenancy_monthly_rent).to eq valid_property_attributes[:tenancy_monthly_rent]
+        expect(property.tenancy_security_deposit).to eq valid_property_attributes[:tenancy_security_deposit]
+        expect(property.tenant_id).to eq valid_property_attributes[:tenant_id]
       end
 
       it 'responds with 302 Found' do

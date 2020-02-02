@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_000423) do
+ActiveRecord::Schema.define(version: 2020_02_02_201717) do
 
   create_table "landlords", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "first_name"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 2020_01_27_000423) do
     t.string "landlord_email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "tenancy_start_date"
+    t.float "tenancy_security_deposit"
+    t.float "tenancy_monthly_rent"
+    t.boolean "rented", default: false
+    t.integer "tenant_id"
     t.index ["property_name"], name: "index_properties_on_property_name", unique: true
   end
 
@@ -38,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_000423) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "property_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -9,45 +9,60 @@
     <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
   </p>
 
+  <% if @property.rented %>
+    <p>
+      <%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>Unrent Property'.html_safe, unrent_property_path(id: @property.id), class: "destroyButton" %>
+    </p>
+  <% end %>
+
   <table class="scaffoldDataTable">
     <tbody>
       <tr>
         <th>Property Name</th>
-
         <th>Property Address</th>
-
         <th>Created</th>
-
         <th>Last Updated</th>
       </tr>
 
       <tr>
         <td><%= @property.property_name %></td>
-
-        <td>
-          <pre><%= @property.property_address %></pre>
-        </td>
-
+        <td><pre><%= @property.property_address %></pre></td>
         <td><%= @property.created_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
-
         <td><%= @property.updated_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
       </tr>
-
       <tr>
         <th>Landlord First Name</th>
-
         <th>Landlord Last Name</th>
-
         <th>Landlord Email</th>
       </tr>
 
        <tr>
         <td><%= @property.landlord_first_name %></td>
-
         <td><%= @property.landlord_last_name %></td>
-
         <td><%= @property.landlord_email %></td>
       </tr>
+
+      <%if !@property.tenants.empty? %>
+        <tr>
+          <th>Tenant first name</th>
+          <th>Tenant last name</th>
+          <th>Tenant email</th>
+          <th>Rented On</th>
+          <th>Security Deposit</th>
+          <th>Monthly Rent</th>
+        </tr>
+
+        <tr>
+          <% @property.tenants.each do |tenant|%>
+            <td><%= tenant.first_name %></td>
+            <td><%= tenant.last_name %></td>
+            <td><%= tenant.email %></td>
+            <td><%= @property.tenancy_start_date.strftime("%d %B %Y") %></td>
+            <td><%= @property.tenancy_security_deposit %></td>
+            <td><%= @property.tenancy_monthly_rent %></td>
+          <%end%>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 

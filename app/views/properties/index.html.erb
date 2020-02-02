@@ -4,7 +4,7 @@
   <p>
     <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
   </p>
-
+  
   <table class="scaffoldListTable">
     <thead>
       <tr>
@@ -13,7 +13,14 @@
         <th>Landlord first name</th>
         <th>Landlord last name</th>
         <th>Landlord email</th>
-        <th colspan="2">Actions</th>
+        <th>Tenant first name</th>
+        <th>Tenant last name</th>
+        <th>Tenant email</th>
+        <th>Rented On</th>
+        <th>Security Deposit</th>
+        <th>Monthly Rent</th>
+        <th>Rented</th>
+        <th colspan="5">Actions</th>
       </tr>
     </thead>
 
@@ -27,6 +34,13 @@
           <td><%= property.landlord_first_name %></td>
           <td><%= property.landlord_last_name %></td>
           <td><%= property.landlord_email %></td>
+          <td><%= property.tenants.first.try(:first_name) || "N/A" %></td>
+          <td><%= property.tenants.first.try(:last_name) || "N/A" %></td>
+          <td><%= property.tenants.first.try(:email) || "N/A" %></td>
+          <td><%= property.tenancy_start_date || "N/A" %></td>
+          <td><%= property.tenancy_security_deposit || "N/A" %></td>
+          <td><%= property.tenancy_monthly_rent || "N/A" %></td>
+          <td><%= property.rented %></td>
           <td><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_property_path(property), title: "Edit Property" %></td>
           <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, property, method: :delete, data: { confirm: "Are you sure want to delete #{property.property_name}?" }, title: "Delete Property" %></td>
         </tr>

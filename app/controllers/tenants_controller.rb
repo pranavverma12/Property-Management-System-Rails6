@@ -2,6 +2,7 @@
 
 class TenantsController < ApplicationController
   before_action :set_tenant, only: %i[show edit update destroy]
+  before_action :tenant_property, only: %i[show]
 
   def index
     @tenants = Tenant.all
@@ -54,6 +55,10 @@ class TenantsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_tenant
     @tenant = Tenant.find(params[:id])
+  end
+
+  def tenant_property
+    @tenant_property = @tenant.property
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
