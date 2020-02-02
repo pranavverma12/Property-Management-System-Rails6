@@ -1,0 +1,11 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Landlords", landlords_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= link_to "#{@landlord.first_name} #{@landlord.last_name}", @landlord %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    Edit
+  </h2>
+
+    <%= render "form", landlord: @landlord %>
+</section>

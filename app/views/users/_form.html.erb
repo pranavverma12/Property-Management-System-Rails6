@@ -1,0 +1,64 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :username %>
+
+    <%= form.text_field :username %>
+
+    <% if user.errors[:username] %>
+      <% user.errors[:username].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+
+    <%= form.password_field :password %>
+
+    <% if user.persisted? %>
+      <p>
+        (leave empty to not change password)
+      </p>
+    <% end %>
+    
+    <% if user.errors[:password] %>
+      <% user.errors[:password].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+
+    <%= form.password_field :password_confirmation %>
+
+    <% if user.errors[:password_confirmation] %>
+      <% user.errors[:password_confirmation].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <% if user.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update User
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, user, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Create User
+      </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, users_path, class: "destroyButton" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,58 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+
+  already_logged_in: 'You are already logged in as %{username}'
+  logout_success: 'You have been logged out'
+  login_success: 'You have successfully logged in as %{username}'
+
+  errors:
+    messages:
+      too_many_lines: 'contains too many lines (maximum is %{count} lines)'
+      too_few_lines: 'contains too few lines (minimum is %{count} lines)'
+      no_spaces: 'cannot contain spaces'
+      username_or_password_incorrect: 'Username or Password are incorrect'
+      username_cannnot_be_empty: 'Username cannot be empty'
+      password_cannnot_be_empty: 'Password cannot be empty'
+      form_has_errors: 'The form below has errors'
+
+  controllers:
+    tenants:
+      messages:
+        success_create: 'Tenant(%{first_name} %{last_name}) was successfully created.'
+        success_update: 'Tenant(%{first_name} %{last_name}) was successfully created.'
+
+    landlords:
+      messages:
+        success_create: 'Landlords(%{first_name} %{last_name} %{email}) was successfully created.'
+        success_update: 'Landlords(%{first_name} %{last_name} %{email}) was successfully updated.'

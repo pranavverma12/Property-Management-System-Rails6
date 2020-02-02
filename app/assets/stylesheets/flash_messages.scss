@@ -1,0 +1,23 @@
+#noticeSection {
+    p {
+        color: #fff;
+        padding: 30px;
+        margin: 0 auto;
+        font-size: 18px;
+
+        &.notice {
+            background-color: #19b5fe;
+            border-color: #bfeaff;
+        }
+
+        &.success {
+            background-color: #0c9;
+            border-color: #b8f1e2;
+        }
+
+        &.error {
+            background-color: #f2545b;
+            border-color: #fbcfd1;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+<%= form_with(model: property, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :property_name %>
+    
+    <%= form.text_field :property_name %>
+
+    <% if property.errors[:property_name] %>
+      <% property.errors[:property_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :property_address %>
+
+    <%= form.text_area :property_address, rows: 10 %>
+
+    <% if property.errors[:property_address] %>
+      <% property.errors[:property_address].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_first_name %>
+
+    <%= form.text_field :landlord_first_name %>
+
+    <% if property.errors[:landlord_first_name] %>
+      <% property.errors[:landlord_first_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_last_name %>
+
+    <%= form.text_field :landlord_last_name %>
+
+    <% if property.errors[:landlord_last_name] %>
+      <% property.errors[:landlord_last_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_email %>
+
+    <%#= form.text_field :landlord_email %>
+    <%= form.select :landlord_email, options_for_select(landlords_email_list, property.landlord_email.to_s) %>
+
+    <% if property.errors[:landlord_email] %>
+      <% property.errors[:landlord_email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <% if property.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Property
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, property, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Property
+      </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, properties_path, class: "destroyButton" %>
+    <% end %>
+  </div>
+<% end %>

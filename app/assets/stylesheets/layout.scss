@@ -1,0 +1,329 @@
+@import "_colours";
+
+body {
+  color: #212121;
+  background-color: $light-main-background;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  overflow-x: hidden;
+
+  margin: 0;
+  padding: 0;
+
+  h1 {
+    margin: 0;
+  }
+
+  #wrapper {
+    display: flex;
+    min-height: 100%;
+
+    #sidebar {
+      position: fixed;
+      width: 280px;
+      left: 0;
+      height: 100%;
+      border-right: 0;
+      box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .05);
+      background-color: $dark-blue;
+
+      #sidebar-header {
+        height: 32px;
+        padding: 16px;
+
+        a {
+          font-size: 22px;
+          line-height: 32px;
+          color: #FFF;
+          text-decoration: none;
+
+          img {
+            width: 32px;
+            height: 32px;
+            padding-right: 5px;
+          }
+
+          span {
+            position: relative;
+            top: -5px;
+          }
+        }
+      }
+
+      #sidebar-nav {
+        background-color: #FFF;
+        height: 100%;
+
+        #sidebar-nav-user {
+          padding: 1.5rem 1rem 1rem;
+          color: #153d77;
+          text-align: center;
+
+          .username {
+            font-weight: bold;
+            font-size: 18px !important;
+          }
+
+          .logoutLink {
+            margin-top: 10px;
+          }
+
+          a {
+            color: $dark-blue;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+
+            &:hover {
+              color: #222;
+            }
+          }
+
+          img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 5px;
+            border-radius: 50% !important;
+            vertical-align: middle;
+            border-style: none;
+          }
+        }
+
+        ul.nav {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            padding-left: 5px;
+            padding-right: 5px;
+
+            &.border {
+              border-bottom: 1px $dark-blue solid;
+              margin: 25px;
+            }
+
+            a {
+              i {
+                margin-right: 10px;
+                color: $dark-blue !important;
+              }
+
+              color: $nav-link;
+              text-decoration: none;
+              padding-top: 15px;
+              padding-bottom: 15px;
+              padding-left: 25px;
+              display: block;
+              font-size: 14px;
+
+              &.active {
+                color: $nav-active-link;
+                background-color: $nav-active-background;
+                border-radius: 3px;
+              }
+
+              &:hover {
+                color: $nav-active-link;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #main {
+      flex: 1;
+      padding-left: 280px;
+
+      .scaffold {
+        padding: 30px;
+        margin-top: 50px;
+
+
+        h2 {
+          margin: 0;
+          font-weight: bold;
+          font-size: 24px;
+          margin-bottom: 40px;
+
+          &.breadcrumbs {
+            a {
+              color: #3b7ddd;
+              text-decoration: none;
+
+              &:hover {
+                cursor: pointer;
+                color: #1e58ad;
+              }
+            }
+          }
+        }
+
+        .scaffoldDataTable {
+          width: 100%;
+          background-color: #FFF;
+          box-shadow: 0 2px 4px rgba(126, 142, 177, .12);
+
+          tr {
+
+            &:first-child {
+
+              th,
+              td {
+                padding-top: 40px;
+              }
+            }
+
+            &:last-child {
+
+              th,
+              td {
+                padding-bottom: 40px;
+              }
+            }
+
+            th,
+            td {
+              text-align: left;
+              padding-right: 10px;
+              padding-top: 5px;
+              padding-left: 40px;
+              padding-bottom: 18px;
+            }
+
+            th {
+              padding-bottom: 5px;
+            }
+
+            td {
+              padding-bottom: 18px;
+            }
+
+            &:last-child {
+              padding-right: 40px;
+            }
+          }
+        }
+
+        .scaffoldListTable {
+          width: 100%;
+          border-collapse: collapse;
+
+          th,
+          td {
+            text-align: left;
+            padding-right: 10px;
+            padding-top: 18px;
+            padding-left: 40px;
+            padding-bottom: 18px;
+
+            &:last-child {
+              padding-right: 40px;
+            }
+          }
+
+          th {
+            font-size: 18px;
+            color: #FFF;
+            background-color: $dark-blue;
+
+            &:first-child {
+              border-top-left-radius: 20px;
+            }
+
+            &:last-child {
+              border-top-right-radius: 20px;
+            }
+          }
+
+          tbody {
+            box-shadow: 0 2px 4px rgba(126, 142, 177, .12);
+
+            tr {
+              background-color: #FFF;
+
+              &:nth-child(even) {
+                background-color: $nav-active-background;
+              }
+
+              td {
+
+                &:last-child {
+                  padding-right: 40px;
+                }
+
+                a {
+                  color: #222;
+                  text-decoration: none;
+
+                  &:hover {
+                    cursor: pointer;
+                    color: $nav-active_link;
+                  }
+
+                  .fa-pencil {
+                    color: $default-button-background;
+                  }
+
+                  .fa-trash {
+                    color: $error-red;
+                  }
+
+                  .fa-pencil,
+                  .fa-trash {
+                    &:hover {
+                      cursor: pointer;
+                      color: $nav-active_link;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      #mainfooter {
+        margin-top: 100px;
+        margin-bottom: 20px;
+        text-align: right;
+        padding-right: 25px;
+
+        a {
+          color: #3b7ddd;
+          text-decoration: none;
+
+          &:hover {
+            cursor: pointer;
+            color: #1e58ad;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+th {
+  padding-bottom: 5px;
+}
+
+td {
+  padding: 0 5px 7px;
+}
+
+div.field,
+div.actions {
+  margin-bottom: 10px;
+}
+
+
+label {
+  display: block;
+}

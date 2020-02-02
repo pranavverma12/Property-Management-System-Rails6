@@ -1,0 +1,37 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">Landlords</h2>
+  
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Landlord'.html_safe, new_landlord_path, class: "addButton" %>
+  </p>
+
+  <table class="scaffoldListTable">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @landlords.each do |landlord| %>
+        <tr>
+          <td><%= landlord.first_name %></td>
+          <td><%= landlord.last_name %></td>
+          <td><%= landlord.email %></td>
+          <td><%= link_to 'Show', landlord %></td>
+          <td><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_landlord_path(landlord), title: "Edit Landlord" %></td>
+          <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, landlord, method: :delete, data: { confirm: "Are you sure want to delete #{landlord.first_name} #{landlord.last_name}?" }, title: "Delete Landlord" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Landlord'.html_safe, new_landlord_path, class: "addButton" %>
+  </p>
+</section>

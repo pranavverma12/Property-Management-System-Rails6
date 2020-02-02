@@ -1,0 +1,24 @@
+AllCops:
+  TargetRubyVersion: '2.6.5'
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'Gemfile.lock'
+    - 'log/**/*'
+    - 'tmp/**/*'
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 35
+
+Metrics/AbcSize:
+  Max: 17
+
+Layout/LineLength:
+  Max: 90
+  AutoCorrect: true

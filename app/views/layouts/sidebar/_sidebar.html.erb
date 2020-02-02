@@ -1,0 +1,17 @@
+<section id="sidebar">
+  <section id="sidebar-header">
+    <a href=<%= root_url %>>
+      <%= image_tag("white_logo.png") %>
+      
+      <span>TenancyManager</span>
+    </a>
+  </section>
+
+  <% if current_user %>
+    <section id="sidebar-nav">
+      <%= render "layouts/sidebar/current_user_info" %>
+  
+      <%= render "layouts/sidebar/navigation" %>
+    </section>
+  <% end %>
+</section>

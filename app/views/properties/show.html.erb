@@ -1,0 +1,57 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Properties", properties_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= @property.property_name %>
+  </h2>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
+  </p>
+
+  <table class="scaffoldDataTable">
+    <tbody>
+      <tr>
+        <th>Property Name</th>
+
+        <th>Property Address</th>
+
+        <th>Created</th>
+
+        <th>Last Updated</th>
+      </tr>
+
+      <tr>
+        <td><%= @property.property_name %></td>
+
+        <td>
+          <pre><%= @property.property_address %></pre>
+        </td>
+
+        <td><%= @property.created_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+
+        <td><%= @property.updated_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+      </tr>
+
+      <tr>
+        <th>Landlord First Name</th>
+
+        <th>Landlord Last Name</th>
+
+        <th>Landlord Email</th>
+      </tr>
+
+       <tr>
+        <td><%= @property.landlord_first_name %></td>
+
+        <td><%= @property.landlord_last_name %></td>
+
+        <td><%= @property.landlord_email %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>Edit Property'.html_safe, edit_property_path(@property), class: "defaultButton" %>
+  </p>
+</section>

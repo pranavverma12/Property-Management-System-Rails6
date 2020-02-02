@@ -1,0 +1,70 @@
+<%= form_with(model: landlord, local: true) do |form| %>
+  <% if landlord.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(landlord.errors.count, "error") %> prohibited this landlord from being saved:</h2>
+
+      <ul>
+        <% landlord.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    
+    <%= form.text_field :first_name %>
+
+    <% if landlord.errors[:first_name] %>
+      <% landlord.errors[:first_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+
+    <%= form.text_field :last_name %>
+
+    <% if landlord.errors[:last_name] %>
+      <% landlord.errors[:last_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+
+    <%= form.text_field :email %>
+
+    <% if landlord.errors[:email] %>
+      <% landlord.errors[:email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <% if landlord.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Landlord
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, landlord, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Landlord
+      </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, landlords_path, class: "destroyButton" %>
+    <% end %>
+  </div>
+<% end %>
