@@ -31,6 +31,10 @@ class Landlord < ApplicationRecord
 
   has_many :properties, :foreign_key => "landlord_email", primary_key: 'email'
 
+  def landlord_full_name
+    self.try(:first_name).try(:capitalize) + ' ' + self.try(:last_name).try(:capitalize)
+  end
+
   private
 
   def strip_whitespace

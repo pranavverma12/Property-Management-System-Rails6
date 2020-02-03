@@ -2,6 +2,7 @@
 
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[show edit update destroy unrent]
+  skip_before_action :authenticate_user!, only: %[advertised_monthly_rent]
 
   def index
     @properties = Property.all
@@ -49,11 +50,15 @@ class PropertiesController < ApplicationController
   end
 
   def unrent
+    @property.tenants.first.update(property_id: nil) 
     @property.update(tenancy_start_date: nil , tenancy_security_deposit: nil, tenancy_monthly_rent: nil, rented: false,
     tenant_id: nil)
-    @property.tenants.first.update(property_id: nil)   
     flash[:success] = 'Property was successfully unrented.'
     redirect_to @property
+  end
+
+  def advertised_monthly_rent
+    @properties = Property.where(rented: false)
   end
 
   private

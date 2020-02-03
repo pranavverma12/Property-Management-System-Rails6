@@ -29,7 +29,7 @@ body {
       background-color: $dark-blue;
 
       #sidebar-header {
-        height: 32px;
+        height: 66px;
         padding: 16px;
 
         a {
@@ -49,6 +49,11 @@ body {
             top: -5px;
           }
         }
+      }
+
+      #advertisement {
+        font-size: 20px;
+        padding-top: 10px;
       }
 
       #sidebar-nav {
@@ -323,7 +328,11 @@ div.actions {
   margin-bottom: 10px;
 }
 
-
 label {
   display: block;
+}
+
+.fa-newspaper-o:before {
+    content: "\f0c0";
+    padding-right: 15px;
 }

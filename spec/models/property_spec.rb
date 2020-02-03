@@ -151,13 +151,6 @@ RSpec.describe Property, type: :model do
       expect(
         build(:property, landlord_email: landlord4.email)
       ).to be_valid
-
-      # expect(
-      #   build(:property, landlord_email: landlord4.email).errors_on(:landlord_email)
-      # ).to eq [I18n.t(
-      #   'errors.messages.too_long',
-      #   count: Property::LANDLORD_EMAIL_MAX_LENGTH
-      # )]
     end
   end
 end

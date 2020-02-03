@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :properties do
     get 'unrent' => 'properties#unrent', on: :member
+    get 'advertised_monthly_rent' => 'properties#advertised_monthly_rent', on: :collection
   end
 
   controller :sessions do
