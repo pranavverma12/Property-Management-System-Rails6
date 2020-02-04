@@ -13,6 +13,8 @@ RSpec.describe 'landlords/index', type: :view do
 
     landlords.each do |landlord|
       expect(rendered).to include landlord.email
+      expect(rendered).to include landlord.first_name
+      expect(rendered).to include landlord.last_name
     end
   end
 end

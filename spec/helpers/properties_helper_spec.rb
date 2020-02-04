@@ -29,10 +29,27 @@ RSpec.describe PropertiesHelper, type: :helper do
   end
 
   describe "Retrieve landlord email from Landlord table" do
-    let!(:landlord) { create(:landlord) }      
+    landlords = Landlord.all    
 
     it 'landlords email present' do      
-      expect(landlord.email).to match(Property::LANDLORD_EMAIL_REGEX)
+      expect(landlords.map(&:email)).to match_array landlords_email_list
+    end
+  end
+
+  describe "Retrieve tenants email from Tenants table" do    
+
+    it 'list generated' do 
+      tenants = Tenant.all
+      expect(tenants.map(&:email)).to match_array tenants_email_list
+    end
+  end
+
+  describe "Rent due on" do  
+    let(:landlord) {create(:landlord)} 
+    let(:property) {create(:property, landlord_email: landlord.email, tenancy_start_date: '02/01/2020')}
+
+    it 'day on the current month' do 
+      expect(rent_due_on(property)).to eq '02 February 2020'
     end
   end
 end

@@ -34,6 +34,26 @@ RSpec.describe 'properties/edit', type: :view do
       )
 
       expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_start_date]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_monthly_rent]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_security_deposit]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_email]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[rented]\"]")
+      )
+
+      expect(rendered).to match(
         have_css("form[action=\"/properties/#{property.id}\"] button[type=\"submit\"]")
       )
 
@@ -71,6 +91,26 @@ RSpec.describe 'properties/edit', type: :view do
 
       expect(rendered).to match(
         have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[landlord_email]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_start_date]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_monthly_rent]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenancy_security_deposit]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_email]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[rented]\"]")
       )
 
       expect(rendered).to match(

@@ -12,5 +12,7 @@ RSpec.describe 'landlords/show', type: :view do
     expect(rendered).to include 'Landlord'
 
     expect(rendered).to include landlord.email
+    expect(rendered).to include landlord.first_name
+    expect(rendered).to include landlord.last_name
   end
 end

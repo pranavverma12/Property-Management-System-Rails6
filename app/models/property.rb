@@ -34,7 +34,7 @@ class Property < ApplicationRecord
   validates :landlord_email, format: { with: LANDLORD_EMAIL_REGEX },
                              if: -> { errors[:landlord_email].blank? }
 
-  belongs_to :landlords, :class_name => "Landlord", :primary_key => "email", foreign_key: 'landlord_email'
+  belongs_to :landlords, :class_name => 'Landlord', primary_key: :email, foreign_key: :landlord_email
 
-  has_many :tenants, :class_name => "Tenant", foreign_key: 'property_id'
+  has_many :tenants, :class_name => 'Tenant', foreign_key: :property_id
 end

@@ -15,6 +15,12 @@ RSpec.describe 'properties/index', type: :view do
 
     properties.each do |property|
       expect(rendered).to include property.property_name
+      expect(rendered).to include property.property_address
+      expect(rendered).to include property.landlord_email
+      expect(rendered).to include property.landlords.full_name
+      expect(rendered).to include property.tenancy_security_deposit.to_s
+      expect(rendered).to include property.tenancy_monthly_rent.to_s
+      expect(rendered).to include property.rented.to_s
     end
   end
 end

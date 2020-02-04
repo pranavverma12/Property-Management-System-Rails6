@@ -35,5 +35,17 @@ RSpec.describe PropertiesController, type: :routing do
     it 'routes to #destroy' do
       expect(delete: '/properties/1').to route_to('properties#destroy', id: '1')
     end
+
+    it 'routes to #unrent' do
+      expect(get: '/properties/1/unrent').to route_to('properties#unrent', id: '1')
+    end
+
+    it 'routes to #advertised_monthly_rent' do
+      expect(get: '/properties/advertised_monthly_rent').to route_to('properties#advertised_monthly_rent')
+    end
+
+    it 'routes to #tenancy_rent_record' do
+      expect(get: '/properties/tenancy_rent_record').to route_to('properties#tenancy_rent_record')
+    end
   end
 end

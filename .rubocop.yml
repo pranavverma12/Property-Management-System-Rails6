@@ -22,3 +22,6 @@ Metrics/AbcSize:
 Layout/LineLength:
   Max: 90
   AutoCorrect: true
+
+Style/EndOfLine:
+  EnforcedStyle: lf

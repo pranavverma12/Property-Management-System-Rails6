@@ -1,6 +1,5 @@
 <section class='scaffold'>
-  <h2 class="breadcrumbs">Properties Available To Rent</h2>
-  
+  <h2 class="breadcrumbs">Tenancy Rent Record</h2>  
   <table class="scaffoldListTable">
     <thead>
       <tr>
@@ -8,20 +7,24 @@
         
         <th>Property address</th>
         
-        <th>Landlord Name</th>        
+        <th>Landlord full name</th>
         
         <th>Landlord email</th>
         
-        <th>Security Deposit</th>
+        <th>Tenant full name</th>
         
-        <th>Monthly Rent</th>
+        <th>Tenant email</th>
+        
+        <th>Rent due on</th>
+        
+        <th>Monthly rent</th>        
       </tr>
     </thead>
 
     <tbody>
       <% @properties.each do |property| %>
         <tr>
-          <td><%= property.property_name %></td>
+          <td><%= link_to property.property_name, property %></td>
           
           <td>
             <pre><%= property.property_address %></pre>
@@ -31,9 +34,13 @@
           
           <td><%= property.landlord_email %></td>
           
-          <td><%= property.tenancy_security_deposit || "N/A" %></td>
+          <td><%= property.tenants.first.full_name %></td>
           
-          <td><%= property.tenancy_monthly_rent || "N/A" %></td>          
+          <td><%= property.tenants.first.email %></td>
+          
+          <td><%= rent_due_on(property) %></td>         
+          
+          <td><%= property.tenancy_monthly_rent %></td>          
         </tr>
       <% end %>
     </tbody>

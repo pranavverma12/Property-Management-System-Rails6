@@ -6,7 +6,7 @@ RSpec.describe 'properties/advertised_monthly_rent', type: :view do
   let(:landlord) { create(:landlord) }
 
   it 'displays all available Properties for rent' do
-    properties = create_list(:property, 2, landlord_email: landlord.email)
+    properties = create_list(:property, 2, landlord_email: landlord.email, rented: false, tenant_id: nil, tenancy_start_date: nil)
     assign(:properties, properties)
 
     render
@@ -16,7 +16,7 @@ RSpec.describe 'properties/advertised_monthly_rent', type: :view do
     properties.each do |property|
       expect(rendered).to include property.property_name
       expect(rendered).to include property.property_address
-      expect(rendered).to include property.landlords.landlord_full_name
+      expect(rendered).to include property.landlords.full_name
       expect(rendered).to include property.landlord_email
       expect(rendered).to include property.tenancy_monthly_rent.to_s
       expect(rendered).to include property.tenancy_security_deposit.to_s

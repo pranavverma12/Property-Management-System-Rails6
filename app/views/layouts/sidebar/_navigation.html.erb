@@ -11,6 +11,10 @@
     <%= link_to '<i class="fa fa-users" aria-hidden="true"></i>Tenants'.html_safe, tenants_url, class: controller_name == "tenants" && "active" %>
   </li>
   
+  <li>
+    <%= link_to '<i class="fa fa-calendar" aria-hidden="true"></i>Tenancy Rent Records'.html_safe, tenancy_rent_record_properties_path, class: controller_name == "properties" && "active" %>
+  </li>
+
   <li class='border'></li>
 
   <li>

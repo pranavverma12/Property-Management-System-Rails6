@@ -16,6 +16,8 @@ RSpec.describe PropertiesController, type: :controller do
     let(:params) { { id: property.id } }
 
     context 'when valid property param attributes' do
+      
+
       let(:valid_property_attributes) do
         {
           property_name: 'somepropertyname',
@@ -26,7 +28,7 @@ RSpec.describe PropertiesController, type: :controller do
           tenancy_start_date: "02/02/2020".to_date,
           tenancy_monthly_rent: 1500,
           tenancy_security_deposit: 3000,
-          tenant_id: 1
+          tenant_email: "sometenantemail@topfloor.ie"
         }
       end
       let(:params) { { id: property.id, property: valid_property_attributes } }
@@ -49,7 +51,14 @@ RSpec.describe PropertiesController, type: :controller do
         expect(property.tenancy_start_date).to eq valid_property_attributes[:tenancy_start_date]
         expect(property.tenancy_monthly_rent).to eq valid_property_attributes[:tenancy_monthly_rent]
         expect(property.tenancy_security_deposit).to eq valid_property_attributes[:tenancy_security_deposit]
-        expect(property.tenant_id).to eq valid_property_attributes[:tenant_id]
+      end
+
+      it 'updated tenants property id and tenants count' do
+        property.reload
+        expect(valid_property_attributes[:tenancy_security_deposit]).not_to be nil
+        tenant.update(property_id: property.id)
+        expect(property.id).to eq tenant.property_id
+        expect(property.tenants.count).to eq(1)
       end
 
       it 'responds with 302 Found' do

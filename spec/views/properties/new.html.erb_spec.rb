@@ -16,6 +16,11 @@ RSpec.describe 'properties/new', type: :view do
       expect(rendered).to match have_css 'form[action="/properties"] input[name="property[landlord_first_name]"]'
       expect(rendered).to match have_css 'form[action="/properties"] input[name="property[landlord_last_name]"]'
       expect(rendered).to match have_css 'form[action="/properties"] select[name="property[landlord_email]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_start_date]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_security_deposit]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] select[name="property[tenant_email]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_monthly_rent]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[rented]"]'
       expect(rendered).to match have_css 'form[action="/properties"] button[type="submit"]'
 
       expect(rendered).to_not match(/error/) # no errors on page
@@ -38,6 +43,11 @@ RSpec.describe 'properties/new', type: :view do
       expect(rendered).to match have_css 'form[action="/properties"] input[name="property[landlord_first_name]"]'
       expect(rendered).to match have_css 'form[action="/properties"] input[name="property[landlord_last_name]"]'
       expect(rendered).to match have_css 'form[action="/properties"] select[name="property[landlord_email]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_start_date]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_security_deposit]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] select[name="property[tenant_email]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[tenancy_monthly_rent]"]'
+      expect(rendered).to match have_css 'form[action="/properties"] input[name="property[rented]"]'
       expect(rendered).to match have_css 'form[action="/properties"] button[type="submit"]'
 
       expect(rendered).to match(/can&#39;t be blank/)
