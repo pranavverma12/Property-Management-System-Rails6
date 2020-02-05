@@ -19,7 +19,7 @@ RSpec.describe PropertiesHelper, type: :helper do
     end
 
     it 'landlords not present present' do
-      landlord = Landlord.find_by(email: valid_property_attributes[:landlord_email])      
+      landlord = Landlord.find_by(email: valid_property_attributes[:landlord_email])
       expect(landlord).to be_nil
     end
 
@@ -36,7 +36,7 @@ RSpec.describe PropertiesHelper, type: :helper do
     end
   end
 
-  describe "Retrieve tenants email from Tenants table" do    
+  describe "Retrieve tenants email from Tenants table" do
 
     it 'list generated' do 
       tenants = Tenant.all
@@ -50,6 +50,19 @@ RSpec.describe PropertiesHelper, type: :helper do
 
     it 'day on the current month' do 
       expect(rent_due_on(property)).to eq '02 February 2020'
+    end
+  end
+
+  describe "Updating Property tenants" do
+    let(:landlord) {create(:landlord)} 
+    let(:tenant) {create(:tenant)}
+    let(:property) {create(:property, landlord_email: landlord.email, tenant_id: tenant.id)}
+    let(:tenant1) {create(:tenant, property_id: property.id)}
+
+    it 'updating to new tenants details' do
+      tenant.update(property_id: property.id)
+      expect(update_tenants_details(property, tenant1.email).id).to eq tenant1.id
+      expect(update_tenants_details(property, tenant1.email)).to be_a Tenant
     end
   end
 end

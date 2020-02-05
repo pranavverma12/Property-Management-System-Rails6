@@ -89,7 +89,6 @@ RSpec.describe Property, type: :model do
     email_domain_substring = '@topfloor.ie'
     max_name_length = Property::LANDLORD_EMAIL_MAX_LENGTH - email_domain_substring.length
     valid_landlord_email = "#{'a' * max_name_length}#{email_domain_substring}"
-    # let(:landlord3) { create(:landlord, email: "a#{valid_landlord_email}") }
     let(:landlord4) { create(:landlord, email: valid_landlord_email) }
 
     it 'property_name having max of Property::PROPERTY_NAME_MAX_LENGTH' do

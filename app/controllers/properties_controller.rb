@@ -20,6 +20,9 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
+    check_tenancy_records(property_params, 'new')
+
+    return unless @property.errors.messages.blank?
 
     if @property.save
       flash[:success] = 'Property was successfully created.'
@@ -30,16 +33,14 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    if @property.update(property_params)
-      if params[:property][:tenant_email] != ''
-        tenant = Tenant.find_by(email: params[:property][:tenant_email])
-      
-        unless tenant.nil?
-          @property.update(tenant_id: tenant.id, rented: true)
-          tenant.update(property_id: @property.id)
-        end
+    check_tenancy_records(property_params, 'edit')
 
-      end
+    return unless @property.errors.messages.blank?
+
+    if @property.update(property_params)
+      tenant_id = update_tenants_details(@property, params[:property][:tenant_id]) if params[:property][:tenant_id] != ''
+
+      @property.update(tenant_id: tenant_id, rented: true) unless tenant_id.nil?
 
       flash[:success] = 'Property was successfully updated.'
       redirect_to @property
@@ -56,7 +57,7 @@ class PropertiesController < ApplicationController
 
   def unrent
     @property.tenants.first.update(property_id: nil)
-    
+
     @property.update(unrent_tenant_params)
     flash[:success] = 'Property was successfully unrented.'
     redirect_to @property
@@ -74,6 +75,19 @@ class PropertiesController < ApplicationController
 
   def set_property
     @property = Property.find(params[:id])
+  end
+
+  def check_tenancy_records(param, return_type)
+    unless param[:tenant_id] != '' && (param[:tenancy_monthly_rent] == '' || param[:tenancy_start_date] == '' || param[:tenancy_security_deposit] == ''); return; end
+
+    adding_custom_errors(@property, 'tenancy_monthly_rent',
+                        'Please rent the valid monthly rent for tenants') if param[:tenancy_monthly_rent] == ''
+    adding_custom_errors(@property, 'tenancy_start_date',
+                        'Please rent the valid start date of tenants') if param[:tenancy_start_date] == ''
+    adding_custom_errors(@property, 'tenancy_security_deposit',
+                        'Please rent the valid monthly rent for tenants') if param[:tenancy_security_deposit] == ''
+
+    render return_type, status: :unprocessable_entity
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

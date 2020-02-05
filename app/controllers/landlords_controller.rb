@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LandlordsController < ApplicationController
-  
+
   include LandlordsHelper
 
   before_action :set_landlord, only: %i[show edit update destroy]
@@ -9,7 +9,7 @@ class LandlordsController < ApplicationController
   def index
     @landlords = Landlord.all
   end
-  
+
   def show; end
 
   def new
@@ -36,10 +36,10 @@ class LandlordsController < ApplicationController
 
   def update
     previous_email = @landlord.email
-    
+
     if @landlord.update(landlord_params)
       update_property_details(@landlord, previous_email)
-      
+
       flash[:success] = I18n.t(:success_update,
                               scope: 'controllers.landlords.messages',
                               first_name: @landlord.first_name,

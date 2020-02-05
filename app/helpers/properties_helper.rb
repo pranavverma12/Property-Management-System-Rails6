@@ -7,7 +7,7 @@ module PropertiesHelper
   end
 
   def tenants_email_list
-    Tenant.all.map(&:email)
+    Tenant.all
   end
 
   def unrent_tenant_params
@@ -21,6 +21,23 @@ module PropertiesHelper
   end
 
   def rent_due_on(property)
-    property.tenancy_start_date.strftime("%d").to_s + " " + Time.now.strftime("%B %Y").to_s
+    property&.tenancy_start_date&.strftime('%d').to_s + ' ' + Time.now.strftime('%B %Y').to_s
+  end
+
+  def update_tenants_details(property, tenant_email)
+    unless property.tenants.empty?
+      property.tenants.each do |t|
+        t.update(property_id: nil)
+      end
+    end
+
+    tenant = Tenant.find_by(email: tenant_email)
+    if tenant.nil?
+      tenant = nil
+    else
+      tenant.update(property_id: property.id)
+    end
+
+    tenant
   end
 end

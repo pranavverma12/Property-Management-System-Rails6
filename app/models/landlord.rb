@@ -22,12 +22,12 @@ class Landlord < ApplicationRecord
     maximum: LAST_NAME_MAX_LENGTH, if: :last_name
   }
   validates :last_name, number_of_lines: { maximum: 1 },
-                        if: -> { errors[:last_name].blank? }  
+                        if: -> { errors[:last_name].blank? }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, length: { maximum: EMAIL_MAX_LENGTH,
-                                       if: :email }
+                    if: :email }
   validates :email, format: { with: EMAIL_REGEX },
-                             if: -> { errors[:email].blank? }
+                    if: -> { errors[:email].blank? }
   has_many :properties, foreign_key: :landlord_email, primary_key: :email
 
   private

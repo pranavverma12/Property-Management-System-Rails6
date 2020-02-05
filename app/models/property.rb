@@ -32,9 +32,13 @@ class Property < ApplicationRecord
   validates :landlord_email, length: { maximum: LANDLORD_EMAIL_MAX_LENGTH,
                                        if: :landlord_email }
   validates :landlord_email, format: { with: LANDLORD_EMAIL_REGEX },
-                             if: -> { errors[:landlord_email].blank? }
+                            if: -> { errors[:landlord_email].blank? }
 
-  belongs_to :landlords, :class_name => 'Landlord', primary_key: :email, foreign_key: :landlord_email
+  belongs_to :landlords, :class_name => 'Landlord',
+                        primary_key: :email,
+                        foreign_key: :landlord_email
 
   has_many :tenants, :class_name => 'Tenant', foreign_key: :property_id
+  # accepts_nested_attributes_for :tenants
+
 end

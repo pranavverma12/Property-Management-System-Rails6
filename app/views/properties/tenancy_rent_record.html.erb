@@ -34,13 +34,13 @@
           
           <td><%= property.landlord_email %></td>
           
-          <td><%= property.tenants.first.full_name %></td>
+          <td><%= property.tenants&.first&.full_name %></td>
           
-          <td><%= property.tenants.first.email %></td>
+          <td><%= property.tenants&.first&.email %></td>
           
           <td><%= rent_due_on(property) %></td>         
           
-          <td><%= property.tenancy_monthly_rent %></td>          
+          <td><%= property&.tenancy_monthly_rent %></td>          
         </tr>
       <% end %>
     </tbody>

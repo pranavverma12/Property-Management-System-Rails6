@@ -78,6 +78,28 @@ RSpec.describe PropertiesController, type: :controller do
       end
     end
 
+    context 'when incomplete tenancy attributes passed' do
+      let(:tenant) { create(:tenant) }
+      let(:invalid_tenancy_attributes) do
+        {
+          tenant_id: tenant.email,
+          tenancy_monthly_rent: '',
+          tenancy_start_date: '',
+          tenancy_security_deposit: ''
+        }
+      end
+      let(:params) { { property: invalid_tenancy_attributes } }
+
+      it 'does not create a Property' do
+        expect { subject }.to_not change(Property, :count)
+      end
+
+      it 'responds with unprocessable_entity' do
+        subject
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
     context 'when user is not logged in' do
       subject { post :create, params: params, session: {} }
 

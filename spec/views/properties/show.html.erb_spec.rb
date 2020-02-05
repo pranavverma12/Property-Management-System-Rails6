@@ -16,9 +16,9 @@ RSpec.describe 'properties/show', type: :view do
     expect(rendered).to include 'Property'
     expect(rendered).to include property.property_name
     expect(rendered).to include property.property_address
-    expect(rendered).to include property.landlord_email
-    expect(rendered).to include property.landlord_first_name
-    expect(rendered).to include property.landlord_last_name
+    expect(rendered).to include property.landlords.email
+    expect(rendered).to include property.landlords.first_name
+    expect(rendered).to include property.landlords.last_name
     expect(rendered).to include property.tenants.first.email
     expect(rendered).to include property.tenancy_security_deposit.to_s
     expect(rendered).to include property.tenancy_monthly_rent.to_s

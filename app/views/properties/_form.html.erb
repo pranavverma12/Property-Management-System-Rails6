@@ -70,12 +70,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :tenant_email %>
+    <%= form.label :tenant_id %>
+    
+    <%= form.collection_select(:tenant_id, tenants_email_list, :id, :email, :prompt => !property.tenants.empty? ? property.tenants.first&.email : "-- Select --") %>
 
-    <%= form.select :tenant_email, tenants_email_list, :prompt => !property.tenants.empty? ? property.tenants.first.email : "-- Select --"%>
-
-    <% if property.errors[:tenant_email] %>
-      <% property.errors[:tenant_email].each do |message| %>
+    <% if property.errors[:tenant_id] %>
+      <% property.errors[:tenant_id].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>

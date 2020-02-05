@@ -16,8 +16,6 @@ RSpec.describe PropertiesController, type: :controller do
     let(:params) { { id: property.id } }
 
     context 'when valid property param attributes' do
-      
-
       let(:valid_property_attributes) do
         {
           property_name: 'somepropertyname',
@@ -88,6 +86,27 @@ RSpec.describe PropertiesController, type: :controller do
         }
       end
       let(:params) { { id: property.id, property: invalid_property_attributes } }
+
+      it 'does not update the Property' do
+        expect { subject }.to_not(change { property.reload.attributes })
+      end
+
+      it 'responds with unprocessable_entity' do
+        subject
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'when incomplete tenancy attributes passed' do
+      let(:invalid_tenancy_attributes) do
+        {
+          tenant_id: tenant.email,
+          tenancy_monthly_rent: '',
+          tenancy_start_date: '',
+          tenancy_security_deposit: ''
+        }
+      end
+      let(:params) { { id: property.id, property: invalid_tenancy_attributes } }
 
       it 'does not update the Property' do
         expect { subject }.to_not(change { property.reload.attributes })

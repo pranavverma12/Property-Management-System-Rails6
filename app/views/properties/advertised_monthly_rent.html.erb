@@ -31,9 +31,9 @@
           
           <td><%= property.landlord_email %></td>
           
-          <td><%= property.tenancy_security_deposit || "N/A" %></td>
+          <td><%= property&.tenancy_security_deposit || "N/A" %></td>
           
-          <td><%= property.tenancy_monthly_rent || "N/A" %></td>          
+          <td><%= property&.tenancy_monthly_rent || "N/A" %></td>
         </tr>
       <% end %>
     </tbody>

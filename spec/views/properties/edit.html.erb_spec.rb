@@ -46,7 +46,7 @@ RSpec.describe 'properties/edit', type: :view do
       )
 
       expect(rendered).to match(
-        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_email]\"]")
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_id]\"]")
       )
 
       expect(rendered).to match(
@@ -106,7 +106,7 @@ RSpec.describe 'properties/edit', type: :view do
       )
 
       expect(rendered).to match(
-        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_email]\"]")
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_id]\"]")
       )
 
       expect(rendered).to match(

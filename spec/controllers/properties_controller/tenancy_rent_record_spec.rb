@@ -29,8 +29,8 @@ RSpec.describe PropertiesController, type: :controller do
       end
 
       it 'tenants information is/are available' do
-        tenant2.update(property_id: property2.id)
         tenant1.update(property_id: property1.id)
+        tenant2.update(property_id: property2.id)
         
         subject
 

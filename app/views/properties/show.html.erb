@@ -45,12 +45,12 @@
         <th>Landlord Email</th>
       </tr>
 
-       <tr>
-        <td><%= @property.landlord_first_name %></td>
-        
-        <td><%= @property.landlord_last_name %></td>
-        
-        <td><%= @property.landlord_email %></td>
+       <tr>        
+          <td><%= @property.landlords.first_name %></td>
+
+          <td><%= @property.landlords.last_name %></td>
+
+          <td><%= @property.landlords.email %></td>
       </tr>
 
       <%if !@property.tenants.empty? %>
@@ -76,7 +76,7 @@
             
             <td><%= tenant.email %></td>
             
-            <td><%= @property.tenancy_start_date.strftime("%d %B %Y") %></td>
+            <td><%= @property.tenancy_start_date %></td>
             
             <td><%= @property.tenancy_security_deposit %></td>
             
