@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def adding_custom_errors(model_name, field_name, message)
-    model_name.errors.add(field_name.to_s, message)     
+    model_name.errors.add(field_name.to_s, message)
   end
 
   private

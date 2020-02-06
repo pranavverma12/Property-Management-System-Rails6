@@ -25,19 +25,29 @@ module PropertiesHelper
   end
 
   def update_tenants_details(property, tenant_email)
-    unless property.tenants.empty?
-      property.tenants.each do |t|
-        t.update(property_id: nil)
-      end
-    end
+    property.tenants.each { |t| t.update(property_id: nil) } unless property.tenants.empty?
 
     tenant = Tenant.find_by(email: tenant_email)
-    if tenant.nil?
-      tenant = nil
-    else
-      tenant.update(property_id: property.id)
-    end
+    tenant.nil? ? nil : tenant.update(property_id: property.id)
 
     tenant
+  end
+
+  def check_tenancy_records(property, param, return_type)
+    unless param[:tenant_id] != '' && (param[:tenancy_monthly_rent] == '' ||
+                                       param[:tenancy_start_date] == '' ||
+                                       param[:tenancy_security_deposit] == ''); return; end
+
+    adding_custom_errors(property,
+                         'tenancy_monthly_rent',
+                         'Please rent the valid monthly rent for tenants') if param[:tenancy_monthly_rent] == ''
+    adding_custom_errors(property,
+                         'tenancy_start_date',
+                         'Please rent the valid start date of tenants') if param[:tenancy_start_date] == ''
+    adding_custom_errors(property,
+                         'tenancy_security_deposit',
+                         'Please rent the valid monthly rent for tenants') if param[:tenancy_security_deposit] == ''
+
+    render return_type, status: :unprocessable_entity
   end
 end

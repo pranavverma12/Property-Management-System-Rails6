@@ -76,7 +76,7 @@
             
             <td><%= tenant.email %></td>
             
-            <td><%= @property.tenancy_start_date %></td>
+            <td><%= @property&.tenancy_start_date&.strftime('%d %B %Y') %></td>
             
             <td><%= @property.tenancy_security_deposit %></td>
             

@@ -41,10 +41,10 @@ class LandlordsController < ApplicationController
       update_property_details(@landlord, previous_email)
 
       flash[:success] = I18n.t(:success_update,
-                              scope: 'controllers.landlords.messages',
-                              first_name: @landlord.first_name,
-                              last_name: @landlord.last_name,
-                              email: @landlord.email)
+                               scope: 'controllers.landlords.messages',
+                               first_name: @landlord.first_name,
+                               last_name: @landlord.last_name,
+                               email: @landlord.email)
 
       redirect_to @landlord
     else
