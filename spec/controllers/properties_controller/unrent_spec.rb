@@ -10,14 +10,19 @@ RSpec.describe PropertiesController, type: :controller do
 
   describe 'GET #unrent' do
     subject { get :unrent, params: params, session: session }
+    let(:tenant) { create(:tenant) }
 
-    let!(:property) { create(:property, landlord_email: landlord.email) }
-    let(:tenant) { create(:tenant, property_id: property.id) }
+    let!(:property) { create(:property, 
+                              landlord_email: landlord.email,
+                              rented: true,
+                              tenants_emails: tenant.email,
+                              tenancy_security_deposit: 1500,
+                              tenancy_monthly_rent: 1500,
+                              tenancy_start_date: '07/02/2020') }
+
     let(:params) { { id: property.id } }
 
     it 'assigns @property' do
-      property.reload
-      tenant.reload
       subject
       expect(assigns(:property)).to eq property
     end
@@ -27,30 +32,26 @@ RSpec.describe PropertiesController, type: :controller do
       subject
       property.reload
 
-      expect(property.tenant_id).to eq nil
+      expect(property.tenants_emails).to eq nil
       expect(property.tenancy_start_date).to eq nil
       expect(property.tenancy_monthly_rent).to eq nil
       expect(property.tenancy_security_deposit).to eq nil
       expect(property.rented).to eq false      
     end
 
-    it 'redirects to properties#show' do
-      property.reload
-      tenant.reload
+    it 'redirects to properties#show' do      
       subject
       expect(response).to redirect_to Property.last
     end
 
     it 'decreasing the tenants count' do
-      property.reload
       tenant.reload
       subject
-      expect(property.tenants.count).to eq(0)
+      property.reload
+      expect(property.alltenants.count).to eq(0)
     end
 
     it 'assigns flash success' do
-      property.reload
-      tenant.reload
       subject
       expect(flash[:success]).to eq 'Property was successfully unrented.'
     end

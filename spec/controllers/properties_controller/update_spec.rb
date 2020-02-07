@@ -51,14 +51,6 @@ RSpec.describe PropertiesController, type: :controller do
         expect(property.tenancy_security_deposit).to eq valid_property_attributes[:tenancy_security_deposit]
       end
 
-      it 'updated tenants property id and tenants count' do
-        property.reload
-        expect(valid_property_attributes[:tenancy_security_deposit]).not_to be nil
-        tenant.update(property_id: property.id)
-        expect(property.id).to eq tenant.property_id
-        expect(property.tenants.count).to eq(1)
-      end
-
       it 'responds with 302 Found' do
         subject
         expect(response).to have_http_status(:found)

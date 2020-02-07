@@ -25,25 +25,26 @@ module PropertiesHelper
       tenancy_security_deposit: nil,
       tenancy_monthly_rent: nil,
       rented: false,
-      tenant_id: nil
+      tenants_emails: nil
     }
   end
 
-  def rent_due_on(property)
+  def rent_due_on(property) # to display the rent due date of the currrent month
     property&.tenancy_start_date&.strftime('%d').to_s + ' ' + Time.now.strftime('%B %Y').to_s
   end
 
-  def update_tenants_details(property, tenant_email)
-    property.tenants.each { |t| t.update(property_id: nil) } unless property.tenants.empty?
+  def update_tenants_details(property, tenant_emails)
+    property.alltenants.each { |t| t.update(property_id: nil) } unless property.alltenants.empty?
 
-    tenant = Tenant.find_by(email: tenant_email)
-    tenant.nil? ? nil : tenant.update(property_id: property.id)
+    property.alltenants.each { |tenant|
+                                tenant.nil? ? nil : tenant.update(property_id: property.id)
+                              }
 
-    tenant
+    property.update(rented: true) unless property.alltenants.map(&:email).blank?    
   end
 
   def check_tenancy_records(property, param, return_type)
-    unless param[:tenant_id] != '' && (param[:tenancy_monthly_rent] == '' ||
+    unless param[:tenants_emails] != '' && (param[:tenancy_monthly_rent] == '' ||
                                        param[:tenancy_start_date] == '' ||
                                        param[:tenancy_security_deposit] == ''); return; end
 

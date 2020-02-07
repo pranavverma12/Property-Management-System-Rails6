@@ -58,7 +58,11 @@ RSpec.describe 'properties/edit', type: :view do
       )
 
       expect(rendered).to match(
-        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_id]\"]")
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenants_emails]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenants_emails_list][]\"]")
       )
 
       expect(rendered).to match(
@@ -68,8 +72,7 @@ RSpec.describe 'properties/edit', type: :view do
       expect(rendered).to match(
         have_css("form[action=\"/properties/#{property.id}\"] button[type=\"submit\"]")
       )
-
-      expect(rendered).to_not match(/error/) # no errors on page
+      
     end
   end
 
@@ -130,7 +133,11 @@ RSpec.describe 'properties/edit', type: :view do
       )
 
       expect(rendered).to match(
-        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenant_id]\"]")
+        have_css("form[action=\"/properties/#{property.id}\"] input[name=\"property[tenants_emails]\"]")
+      )
+
+      expect(rendered).to match(
+        have_css("form[action=\"/properties/#{property.id}\"] select[name=\"property[tenants_emails_list][]\"]")
       )
 
       expect(rendered).to match(

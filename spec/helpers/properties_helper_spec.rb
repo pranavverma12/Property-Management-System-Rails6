@@ -56,13 +56,12 @@ RSpec.describe PropertiesHelper, type: :helper do
   describe "Updating Property tenants" do
     let(:landlord) {create(:landlord)} 
     let(:tenant) {create(:tenant)}
-    let(:property) {create(:property, landlord_email: landlord.email, tenant_id: tenant.id)}
+    let(:property) {create(:property, landlord_email: landlord.email, tenants_emails: tenant.email)}
     let(:tenant1) {create(:tenant, property_id: property.id)}
 
     it 'updating to new tenants details' do
       tenant.update(property_id: property.id)
-      expect(update_tenants_details(property, tenant1.email).id).to eq tenant1.id
-      expect(update_tenants_details(property, tenant1.email)).to be_a Tenant
+      expect(update_tenants_details(property, tenant1.email)).to eq true
     end
   end
 

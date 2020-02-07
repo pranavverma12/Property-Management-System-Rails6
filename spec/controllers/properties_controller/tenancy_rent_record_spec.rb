@@ -13,8 +13,22 @@ RSpec.describe PropertiesController, type: :controller do
 
   describe 'GET #tenancy_rent_record' do
     context 'when user is logged in' do
-      let!(:property1) { create(:property, landlord_email: landlord1.email, tenant_id: tenant1.id, rented: true) }
-      let!(:property2) { create(:property, landlord_email: landlord2.email, tenant_id: tenant2.id, rented: true) }
+      let!(:property1) { create(:property,
+                                landlord_email: landlord1.email,
+                                rented: true,
+                                tenants_emails: tenant1.email,
+                                tenancy_security_deposit: 1500,
+                                tenancy_monthly_rent: 1500,
+                                tenancy_start_date: '07/02/2020') }
+
+      let!(:property2) { create(:property,
+                                landlord_email: landlord2.email,
+                                rented: true,
+                                tenants_emails: tenant2.email,
+                                tenancy_security_deposit: 1500,
+                                tenancy_monthly_rent: 1500,
+                                tenancy_start_date: '07/02/2020') }
+
       subject { get :tenancy_rent_record, params: params, session: session }
 
 
@@ -34,12 +48,12 @@ RSpec.describe PropertiesController, type: :controller do
         
         subject
 
-        expect(property1.tenants.first.id).to eq(tenant1.id)
-        expect(property2.tenants.first.id).to eq(tenant2.id)
-        expect(property1.tenants.first.email).to eq(tenant1.email)
-        expect(property2.tenants.first.email).to eq(tenant2.email)
-        expect(property1.tenants.first.full_name).to eq(tenant1.full_name)
-        expect(property2.tenants.first.full_name).to eq(tenant2.full_name)
+        expect(property1.alltenants.map(&:id)).to eq([tenant1.id])
+        expect(property2.alltenants.map(&:id)).to eq([tenant2.id])
+        expect(property1.alltenants.map(&:email)).to eq([tenant1.email])
+        expect(property2.alltenants.map(&:email)).to eq([tenant2.email])
+        expect(property1.alltenants.map(&:full_name)).to eq([tenant1.full_name])
+        expect(property2.alltenants.map(&:full_name)).to eq([tenant2.full_name])
       end
 
       it 'responds with 200 OK' do

@@ -11,8 +11,8 @@ RSpec.describe PropertiesController, type: :controller do
     context 'when user is not logged in' do
       subject { get :advertised_monthly_rent, params: params }
 
-      let!(:property1) { create(:property, landlord_email: landlord1.email, rented: false, tenant_id: nil, tenancy_start_date: nil) }
-      let!(:property2) { create(:property, landlord_email: landlord2.email, rented: false, tenant_id: nil, tenancy_start_date: nil) }
+      let!(:property1) { create(:property, landlord_email: landlord1.email, rented: false, tenants_emails: nil, tenancy_start_date: nil) }
+      let!(:property2) { create(:property, landlord_email: landlord2.email, rented: false, tenants_emails: nil, tenancy_start_date: nil) }
 
       it 'property is not rented and have valid details' do
         subject
@@ -20,15 +20,15 @@ RSpec.describe PropertiesController, type: :controller do
         expect(property2.rented).to eq false
         expect(property1.tenancy_start_date).to eq nil
         expect(property2.tenancy_start_date).to eq nil
-        expect(property1.tenant_id).to eq nil
-        expect(property2.tenant_id).to eq nil
+        expect(property1.alltenants.map(&:emails)).to eq []
+        expect(property2.alltenants.map(&:emails)).to eq []
       end
 
       it 'tenants information are not available' do
         subject
 
-        expect(property1.tenants.count).to eq 0
-        expect(property2.tenants.count).to eq 0
+        expect(property1.alltenants.count).to eq 0
+        expect(property2.alltenants.count).to eq 0
       end
 
       it 'responds with 200 OK' do

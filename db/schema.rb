@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_193035) do
     t.float "tenancy_security_deposit"
     t.float "tenancy_monthly_rent"
     t.boolean "rented", default: false
-    t.integer "tenant_id"
+    t.text "tenants_emails"
     t.boolean "multiple_landlords", default: false
     t.text "other_landlords_emails"
     t.index ["property_name"], name: "index_properties_on_property_name", unique: true

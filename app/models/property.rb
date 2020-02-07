@@ -38,7 +38,11 @@ class Property < ApplicationRecord
                         primary_key: :email,
                         foreign_key: :landlord_email
 
-  has_many :tenants, :class_name => 'Tenant', foreign_key: :property_id
+  has_many :alltenants, :class_name => 'Tenant', foreign_key: :property_id # custom association for the tenants
 
   scope :other_landlords, ->(emails) {Landlord.where("email IN (?)", emails)}
+
+  def alltenants
+    Tenant.where("email IN (?)", tenants_emails&.split(","))
+  end
 end

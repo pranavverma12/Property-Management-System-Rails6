@@ -4,6 +4,6 @@ class AddTenancyFieldsToProperty < ActiveRecord::Migration[6.0]
     add_column :properties, :tenancy_security_deposit, :float
     add_column :properties, :tenancy_monthly_rent, :float
     add_column :properties, :rented, :boolean, :default => false
-    add_column :properties, :tenant_id, :integer
+    add_column :properties, :tenants_emails, :text, array: true
   end
 end

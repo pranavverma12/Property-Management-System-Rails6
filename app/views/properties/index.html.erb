@@ -48,12 +48,12 @@
           <td><%= property.landlords.full_name %></td>
           
           <td><%= property.landlord_email %></td>
+
+          <td><%= property.alltenants.map { |t| t&.first_name }.join(', ') %></td>
+
+          <td><%= property.alltenants.map { |t| t&.last_name }.join(', ') %></td>
           
-          <td><%= property.tenants.first&.first_name %></td>
-          
-          <td><%= property.tenants.first&.last_name %></td>
-          
-          <td><%= property.tenants.first&.email %></td>
+          <td><%= property.alltenants.map(&:email)&.join(', ') %></td>
           
           <td><%= property&.tenancy_start_date %></td>
           

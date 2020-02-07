@@ -55,7 +55,7 @@
         </tr>
       <% end %>
 
-      <%if !@property.tenants.empty? %>
+      <%if !@property.alltenants.empty? %>
         <tr>
           <th>Tenant first name</th>
           
@@ -70,8 +70,8 @@
           <th>Monthly Rent</th>
         </tr>
 
-        <tr>
-          <% @property.tenants.each do |tenant|%>
+        <% @property.alltenants.each do |tenant|%>
+          <tr>
             <td><%= tenant.first_name %></td>
             
             <td><%= tenant.last_name %></td>
@@ -83,8 +83,8 @@
             <td><%= @property.tenancy_security_deposit %></td>
             
             <td><%= @property.tenancy_monthly_rent %></td>
-          <%end%>
-        </tr>
+          </tr>
+        <%end%>
       <% end %>
     </tbody>
   </table>

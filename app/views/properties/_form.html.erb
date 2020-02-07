@@ -98,13 +98,14 @@
     <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :tenant_id %>
-    
-    <%= form.collection_select(:tenant_id, tenants_email_list, :email, :email, :prompt => !property.tenants.empty? ? property.tenants.first&.email : "-- Select --") %>
+  <div class="field" id="other_tenants_emails">
+    <%= form.label :tenants_emails %>
 
-    <% if property.errors[:tenant_id] %>
-      <% property.errors[:tenant_id].each do |message| %>
+    <%= form.text_field :tenants_emails%>
+    <%= form.collection_select(:tenants_emails_list, tenants_email_list, :email, :email, {:selected => ""}, {multiple: true}) %>
+
+    <% if property.errors[:tenants_emails] %>
+      <% property.errors[:tenants_emails].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -190,10 +191,6 @@
     $('#other_landlords_emails').toggle()
   });
 
-  $(".country_id").on('change', function(){
-    $('.phone_country').val($(this).val());
-  });
-
   $(function() {
    values = []
     $('#property_landlords_emails').change(function() {
@@ -203,6 +200,18 @@
         );
       });
       $('#property_other_landlords_emails').val([...new Set(values)])
+    });
+  });
+
+  $(function() {
+   values = []
+    $('#property_tenants_emails_list').change(function() {
+      $('option:selected', $(this)).each(function() {
+        $('#property_tenants_emails').append(
+          values.push($(this).val())
+        );
+      });
+      $('#property_tenants_emails').val([...new Set(values)])
     });
   });
 </script>

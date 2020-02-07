@@ -20,7 +20,7 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
-    check_tenancy_records(@property, property_params, 'new')
+    check_tenancy_records(@property, property_params, 'new') # to check if valid tenancy details has been passed or not
 
     return unless @property.errors.messages.blank?
 
@@ -33,14 +33,12 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    check_tenancy_records(@property, property_params, 'edit')
+    check_tenancy_records(@property, property_params, 'edit') # to check if valid tenancy details has been passed or not
 
     return unless @property.errors.messages.blank?
 
     if @property.update(property_params)
-      tenant_id = update_tenants_details(@property, params[:property][:tenant_id])
-
-      @property.update(tenant_id: tenant_id, rented: true) unless tenant_id.nil?
+      update_tenants_details(@property, params[:property][:tenants_emails])
 
       flash[:success] = 'Property was successfully updated.'
       redirect_to @property
@@ -56,9 +54,11 @@ class PropertiesController < ApplicationController
   end
 
   def unrent
-    @property.tenants.first.update(property_id: nil)
+    @property.alltenants.each { |tenant|
+                                tenant.update(property_id: nil)
+                              } # remove all tenants from the property
 
-    @property.update(unrent_tenant_params)
+    @property.update(unrent_tenant_params) # munually updating property tenancy details
     flash[:success] = 'Property was successfully unrented.'
     redirect_to @property
   end
@@ -89,7 +89,7 @@ class PropertiesController < ApplicationController
       :tenancy_security_deposit,
       :tenancy_monthly_rent,
       :rented,
-      :tenant_id,
+      :tenants_emails,
       :multiple_landlords, 
       :other_landlords_emails
     )
