@@ -1,0 +1,43 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Landlords", landlords_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= @landlord.first_name %> <%= @landlord.last_name %>
+  </h2>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New landlord'.html_safe, new_landlord_path, class: "addButton" %>
+  </p>
+  
+  <table class="scaffoldDataTable">
+    <tbody>
+      <tr>
+        <th>First Name</th>
+
+        <th>Last Name</th>
+
+        <th>Email</th>
+
+        <th>Created</th>
+
+        <th>Last Updated</th>
+      </tr>
+
+      <tr>
+        <td><%= @landlord.first_name %></td>
+        
+        <td><%= @landlord.last_name %></td>
+        
+        <td><%= @landlord.email %></td>
+
+        <td><%= @landlord.created_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+
+        <td><%= @landlord.updated_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>Edit Landlord'.html_safe, edit_landlord_path(@landlord), class: "defaultButton" %>
+  </p>
+</section>

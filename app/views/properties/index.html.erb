@@ -1,0 +1,79 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">Properties</h2>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
+  </p>
+  
+  <table class="scaffoldListTable">
+    <thead>
+      <tr>
+        <th>Property name</th>
+        
+        <th>Property address</th>
+        
+        <th>Landlord full name</th>
+        
+        <th>Landlord email</th>
+        
+        <th>Tenant first name</th>
+        
+        <th>Tenant last name</th>
+        
+        <th>Tenant email</th>
+        
+        <th>Rented On</th>
+        
+        <th>Security Deposit</th>
+        
+        <th>Monthly Rent</th>
+        
+        <th>Rented</th>
+
+        <th>Multiple Landlords</th>
+        
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @properties.each do |property| %>
+        <tr>
+          <td><%= link_to property.property_name, property %></td>
+          
+          <td>
+            <pre><%= property.property_address %></pre>
+          </td>
+          
+          <td><%= property.landlords.full_name %></td>
+          
+          <td><%= property.landlord_email %></td>
+
+          <td><%= property.alltenants.map { |t| t&.first_name }.join(', ') %></td>
+
+          <td><%= property.alltenants.map { |t| t&.last_name }.join(', ') %></td>
+          
+          <td><%= property.alltenants.map(&:email)&.join(', ') %></td>
+          
+          <td><%= property&.tenancy_start_date %></td>
+          
+          <td><%= property&.tenancy_security_deposit %></td>
+          
+          <td><%= property&.tenancy_monthly_rent %></td>
+          
+          <td><%= property.rented %></td>
+
+          <td><%= property.multiple_landlords %></td>
+          
+          <td><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_property_path(property), title: "Edit Property" %></td>
+          
+          <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, property, method: :delete, data: { confirm: "Are you sure want to delete #{property.property_name}?" }, title: "Delete Property" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
+  </p> 
+</section>

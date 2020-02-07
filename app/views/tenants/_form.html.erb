@@ -1,0 +1,58 @@
+<%= form_with(model: tenant, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :first_name %>
+    
+    <%= form.text_field :first_name %>
+
+    <% if tenant.errors[:first_name] %>
+      <% tenant.errors[:first_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+
+    <%= form.text_field :last_name %>
+
+    <% if tenant.errors[:last_name] %>
+      <% tenant.errors[:last_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+
+    <%= form.text_field :email %>
+
+    <% if tenant.errors[:email] %>
+      <% tenant.errors[:email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <% if tenant.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Tenant
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, tenant, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Tenant
+      </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, tenants_path, class: "destroyButton" %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,54 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Tenants", tenants_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= @tenant.first_name %> <%= @tenant.last_name %>
+  </h2>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Tenant'.html_safe, new_tenant_path, class: "addButton" %>
+  </p>
+
+  
+  <table class="scaffoldDataTable">
+    <tbody>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Created</th>
+        <th>Last Updated</th>
+      </tr>
+
+      <tr>
+        <td><%= @tenant.first_name %></td>        
+        <td><%= @tenant.last_name %></td>        
+        <td><%= @tenant.email %></td>
+        <td><%= @tenant.created_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+        <td><%= @tenant.updated_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+      </tr>
+
+      <%if @tenant_property %>
+        <tr>
+          <th>Property Name</th>
+          <th>Property Address</th>          
+          <th>Rented On</th>
+          <th>Security Deposit</th>
+          <th>Monthly Rent</th>
+        </tr>
+
+        <tr>
+          <td><%= @tenant_property.property_name %></td>
+          <td><%= @tenant_property.property_address %></td>
+          <td><%= @tenant_property.tenancy_start_date.strftime("%d %B %Y") %></td>
+          <td><%= @tenant_property.tenancy_security_deposit %></td>
+          <td><%= @tenant_property.tenancy_monthly_rent %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p>
+    <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>Edit Tenant'.html_safe, edit_tenant_path(@tenant), class: "defaultButton" %>
+  </p>
+</section>

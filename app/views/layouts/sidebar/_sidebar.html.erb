@@ -1,0 +1,21 @@
+<section id="sidebar">
+  <section id="sidebar-header">
+    <a href=<%= root_url %>>
+      <%= image_tag("white_logo.png") %>
+      
+      <span>TenancyManager</span>
+    </a>
+    
+    <a href=<%= advertised_monthly_rent_properties_path%>>
+      <span id="advertisement" class="fa fa-newspaper-o">Advertised Monthly Rent</span>
+    </a>
+  </section>
+
+  <% if current_user %>
+    <section id="sidebar-nav">
+      <%= render "layouts/sidebar/current_user_info" %>
+  
+      <%= render "layouts/sidebar/navigation" %>
+    </section>
+  <% end %>
+</section>

@@ -1,0 +1,35 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Users", users_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= @user.username %>
+  </h2>
+
+  <p>
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New User'.html_safe, new_user_path, class: "addButton" %>
+  </p>
+
+  <table class="scaffoldDataTable">
+    <tbody>
+      <tr>
+        <th>Username</th>
+
+        <th>Created</th>
+
+        <th>Last Updated</th>
+      </tr>
+
+      <tr>
+        <td><%= @user.username %></td>
+
+        <td><%= @user.created_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+
+        <td><%= @user.updated_at.strftime("%H:%M:%S %A %d %B %Y") %></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p>
+    <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>Edit User'.html_safe, edit_user_path(@user), class: "defaultButton" %>
+  </p>
+</section>

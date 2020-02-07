@@ -1,0 +1,9 @@
+<section id="sidebar-nav-user">
+  <%= image_tag("default_user_profile.png") %>
+  <div class="username">
+    <%= link_to current_user.username, current_user %>
+  </div>
+  <div class="logoutLink">
+    <%= link_to '<i class="fa fa-sign-out" aria-hidden="true"></i>Logout'.html_safe, logout_url, method: :delete, class: "defaultButton" %>
+  </div>
+</section>

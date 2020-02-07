@@ -1,0 +1,5 @@
+{
+    "ruby.rubocop.useBundler": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveTimeout": 3000
+}

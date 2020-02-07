@@ -1,0 +1,217 @@
+<%= form_with(model: property, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :property_name %>
+    
+    <%= form.text_field :property_name %>
+
+    <% if property.errors[:property_name] %>
+      <% property.errors[:property_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :property_address %>
+
+    <%= form.text_area :property_address, rows: 10 %>
+
+    <% if property.errors[:property_address] %>
+      <% property.errors[:property_address].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_first_name %>
+
+    <%= form.text_field :landlord_first_name %>
+
+    <% if property.errors[:landlord_first_name] %>
+      <% property.errors[:landlord_first_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_last_name %>
+
+    <%= form.text_field :landlord_last_name %>
+
+    <% if property.errors[:landlord_last_name] %>
+      <% property.errors[:landlord_last_name].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landlord_email %> <span style="font-size: 11px; color: red;">*This will be your first owner of the property</span>
+
+    <%= form.select :landlord_email, options_for_select(landlords_email_list, property.landlord_email.to_s) %>
+
+    <% if property.errors[:landlord_email] %>
+      <% property.errors[:landlord_email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :multiple_landlords %>
+
+    <%= form.check_box :multiple_landlords%>
+
+    <% if property.errors[:multiple_landlords] %>
+      <% property.errors[:multiple_landlords].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field <%= 'no_multiple' unless property.multiple_landlords %>" id="other_landlords_emails">
+    <%= form.label :other_landlords_emails %>
+
+    <%= form.text_field :other_landlords_emails%>
+    <%= form.collection_select(:landlords_emails, other_landlords_email_list(property&.landlord_email.to_s), :email, :email, {:selected => ""}, {multiple: true}) %>
+
+    <% if property.errors[:other_landlords_emails] %>
+      <% property.errors[:other_landlords_emails].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field" id="other_tenants_emails">
+    <%= form.label :tenants_emails %>
+
+    <%= form.text_field :tenants_emails%>
+    <%= form.collection_select(:tenants_emails_list, tenants_email_list, :email, :email, {:selected => ""}, {multiple: true}) %>
+
+    <% if property.errors[:tenants_emails] %>
+      <% property.errors[:tenants_emails].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_start_date %>
+
+    <%= form.date_field :tenancy_start_date, as: :date, value: form.object.try(:strftime,"%m/%d/%Y") %>    
+
+    <% if property.errors[:tenancy_start_date] %>
+      <% property.errors[:tenancy_start_date].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_monthly_rent %>
+
+    <%= form.number_field :tenancy_monthly_rent %>    
+
+    <% if property.errors[:tenancy_monthly_rent] %>
+      <% property.errors[:tenancy_monthly_rent].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_security_deposit %>
+
+    <%= form.number_field :tenancy_security_deposit %>
+
+    <% if property.errors[:tenancy_security_deposit] %>
+      <% property.errors[:tenancy_security_deposit].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rented %>
+
+    <%= form.check_box :rented %>
+
+    <% if property.errors[:rented] %>
+      <% property.errors[:rented].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <% if property.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Property
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, property, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Property
+      </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, properties_path, class: "destroyButton" %>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  
+  $('#property_multiple_landlords').change(function() {
+    $('#other_landlords_emails').toggle()
+  });
+
+  $(function() {
+   values = []
+    $('#property_landlords_emails').change(function() {
+      $('option:selected', $(this)).each(function() {
+        $('#property_other_landlords_emails').append(
+          values.push($(this).val())
+        );
+      });
+      $('#property_other_landlords_emails').val([...new Set(values)])
+    });
+  });
+
+  $(function() {
+   values = []
+    $('#property_tenants_emails_list').change(function() {
+      $('option:selected', $(this)).each(function() {
+        $('#property_tenants_emails').append(
+          values.push($(this).val())
+        );
+      });
+      $('#property_tenants_emails').val([...new Set(values)])
+    });
+  });
+</script>

@@ -1,0 +1,23 @@
+<ul class="nav">
+  <li>
+    <%= link_to '<i class="fa fa-group" aria-hidden="true"></i>Landlords'.html_safe, landlords_url, class: controller_name == "landlords" && "active" %>
+  </li>
+
+  <li>
+    <%= link_to '<i class="fa fa-building" aria-hidden="true"></i>Properties'.html_safe, properties_url, class: controller_name == "properties" && "active" %>
+  </li>
+  
+  <li>
+    <%= link_to '<i class="fa fa-users" aria-hidden="true"></i>Tenants'.html_safe, tenants_url, class: controller_name == "tenants" && "active" %>
+  </li>
+  
+  <li>
+    <%= link_to '<i class="fa fa-calendar" aria-hidden="true"></i>Tenancy Rent Records'.html_safe, tenancy_rent_record_properties_path, class: controller_name == "properties" && "active" %>
+  </li>
+
+  <li class='border'></li>
+
+  <li>
+    <%= link_to '<i class="fa fa-cog fa-spin" aria-hidden="true"></i>Users'.html_safe, users_url, class: controller_name == "users" && "active" %>
+  </li>
+</ul>

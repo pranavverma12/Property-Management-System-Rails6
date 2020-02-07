@@ -1,0 +1,71 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@import 'colours';
+
+body.sessions {
+    #login-form-section {
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 250px;
+
+        h2 {
+            text-align: center;
+        }
+
+        form.login-form {
+            background-color: #FFF;
+            box-shadow: 0 2px 4px rgba(126, 142, 177, .12);
+            border-radius: 2px;
+            padding: 25px;
+
+            .form-control {
+                margin-bottom: 25px;
+
+                label {
+                    display: inline-block;
+                    margin-bottom: 10px;
+                }
+
+                input[type='text'],
+                input[type='password'] {
+                    display: block;
+                    width: 95%;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    border-radius: .3rem;
+                    font-weight: 400;
+                    color: #495057;
+                    padding-left: 5px;
+                    padding-left: 5px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    background-color: #fff;
+                    background-clip: padding-box;
+                    border: 1px solid #ced4da;
+                }
+
+                &.error {
+                    label {
+                        color: $error-red;
+                    }
+
+                    input[type='text'],
+                    input[type='password'] {
+                        border: 1px solid $error-red;
+                    }
+
+                    .errorMessage {
+                        color: $error-red;
+                    }
+                }
+            }
+
+            .form-submit {
+                text-align: center !important;
+                margin-top: 35px;
+            }
+        }
+    }
+}
