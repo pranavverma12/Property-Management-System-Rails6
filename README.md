@@ -1,3 +1,57 @@
+# Updated Flow of the Project
+
+### 1. Database: MySQL (Workbench 8.0)
+
+### 2. Editor: Sublime Text
+
+### 3. OS: Windows
+
+### 4. Installation of the project:
+1. `bundle install` - install gems
+1. `bundle exec rake db:create` - set up sqlite database
+1. `bundle exec rake db:schema:load` - load the database schema into development database
+1. `RAILS_ENV=test rake db:schema:load` - load the database schema in test database
+  **Note/Assumption:** It is assumed that you already have the dataset which has the property table with valid details.
+1. If you already have the dataset run `bundle exec rake db:seed` - populate database with some test data, else I request you to comment the `belongs_to :landlords` command in the property model before running the seed.
+1. To update the Landlord table details please uncomment the 'belongs_to' (if commented) and run the task created under lib/tasks `rake landlord:enter_data`.
+1. `bundle exec rspec` - run all the tests
+
+### 5. Features:
+**1. The starting design of this app was to store `landlord_name` under a `Property`. A customer has requested that they be able to assign multiple properties to a single landlord. Extract the landlord information from the `Property` model and create a new model `Landlord`. A single `Landlord` can own one or more `Property` records. We will also need a way for a logged in user to manage landlords (list, create, edit, delete). The create process for `Property` will need to be refactored to allow user to select a `Landlord`. `Optional Bonus:` A `Property` can belong to one or more `Landlord` records. i.e. one/two/three/four/etc.. landlords can be joint owners of a single property.**
+
+Note: To add multiple Landlord different approach has been used as compare to add multiple tenants. To store multiple Landlords two new fields are added which will stores the information of the other landlord email and store info if the multiple landlords are available for the property or not.
+
+* Initally you can just enter the first landlord of the property. If you want to add multiple landlords select the checkbox and it will display the emails of other landlords. A select input field has been added in the form where you can select other landlords details, also a text field will display all the selected landlords (note: unselection of the landlord has not been added for this time)
+
+* Property Show page will display all the landlords details and tenants details (if tenant is added).
+
+* Property Index page will display only the details of the first landlords while all the tenants/tenancy information can be seen on this page itself.
+
+* After updating any information of the first landlord of the property, details will be updated in the property table also.
+
+**2. The customer now wants to create record of when a `tenant` rents a `property`. This is a `Tenancy`. To record a `Tenancy` the user will need to record:
+        * The `start_date` of the tenancy. i.e. When does the `Tenant` move in and start paying rent. The rent should be paid on same day every month going forward. e.g. If the `start_date` is the 23rd of January, the next rent needs to be paid on the 23rd of February. ( To keep the exercise simple... just ignore edge cases like 29th, 30th, 31st of a month so we can avoid the months that do not have those dates. )
+        * The `security_deposit`. A `security_deposit` is collected, just in case there is damage on the property when the `Tenant` moves out. The deposit will be used to pay for the repairs of any damage. If there is no damage, the `security_deposit` will be refunded to the `Tenant`. Usually this is the same as 1-month's rent but depending on the agreement, it could be more or less.
+        * The `monthly_rent`. The amount of rent due every month.
+        * The `property` associated with the `Tenancy`. We also need to make sure here that we don't associated the same property with more than one `Tenancy` i.e. we can't rent out the same property twice!
+        * The `tenant` that is renting the property. `Optional Bonus:` A `Tenancy` can be associated to one or more `Tenant` records. i.e. two/three/four/five... tenants/people can joint rent a property.**
+
+Note: To add Multiple Tenants different approach has been used. To store multiple tenants you just need to select multiple values from the select option available in the property form. Also custom association has been added to map property and tenants.
+
+* All the fields are added in the property table.
+
+* For the simplicity if tenant email has been added and no other tenancy information is provided it will display the errors. So, to added a successful tenancy you have to enter all the tenancy details like monthly rent, security deposit etc. While if any of the other information is updated if will be saved but only visible on the show when valid tenant is assigned. Also, these details are visible on the advertisement page (even if the tenat is not added).
+
+**3. The customer wants to advertise available `Property` records with an `advertised_monthly_rent`. Create a list of available `Property` records (i.e. properties that have not been rented out to a `Tenant`) and display the property name and new advertised_rent figure. This page would need to be available to user's who are not logged in, else potential tenants would not be able to find it.**
+
+* Page added with a name convention as `Advertised Monthly Rent`. It will show the first landlord name, email, monthly rent and security deposit.
+
+**4. The customer wants to check the bank account to see if all the rent has been paid this month for all the `Tenancy` records. Create a page that lists all the rent amount, the expected rent due day and the property name for every `Tenancy` record for the current month. The customer can then manually use this list to compare to their bank account.**
+
+* Page added with a name convention as `Tenancy Rent Records`. It will display the details of first landlord and all tenants details.
+
+**Note: Different approaches has been used for the multiple landlord/tenants just to be flexible and adaptable with the different logics.**
+
 # Tenancy Database
 
 ## Description
@@ -27,7 +81,6 @@ The commands to set up the rails project are pretty much the same for any rails 
 1. `bundle exec rake db:seed` - populate database with some test data (running this deletes any existing data)
 1. `bundle exec rspec` - run all the tests, so you can get an idea of what is already present in project. (Also early indicator of problems if any of the tests fail. They should all pass at this beginning stage, 216 tests)
 1. Rails 6 is packaged with webpacker, so we need to install and run `yarn` before we can start a rails server.
-
 
 We have set up the project with guard and a simple `Guardfile` for easier test driven development. It is configured to automatically run tests on file changes. It is optional to use it, but we recommend it while writing tests for faster feedback. (note there might be problems with this kind of setup on Windows as it doesn't alert guard to file changes)
 * `bundle exec guard`
