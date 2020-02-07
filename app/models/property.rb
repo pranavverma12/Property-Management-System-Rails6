@@ -39,6 +39,6 @@ class Property < ApplicationRecord
                         foreign_key: :landlord_email
 
   has_many :tenants, :class_name => 'Tenant', foreign_key: :property_id
-  # accepts_nested_attributes_for :tenants
 
+  scope :other_landlords, ->(emails) {Landlord.where("email IN (?)", emails)}
 end

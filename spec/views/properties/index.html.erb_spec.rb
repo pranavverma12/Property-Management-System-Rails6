@@ -21,6 +21,7 @@ RSpec.describe 'properties/index', type: :view do
       expect(rendered).to include property.tenancy_security_deposit.to_s
       expect(rendered).to include property.tenancy_monthly_rent.to_s
       expect(rendered).to include property.rented.to_s
+      expect(rendered).to include property.multiple_landlords.to_s
     end
   end
 end

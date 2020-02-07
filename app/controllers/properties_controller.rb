@@ -89,7 +89,9 @@ class PropertiesController < ApplicationController
       :tenancy_security_deposit,
       :tenancy_monthly_rent,
       :rented,
-      :tenant_id
+      :tenant_id,
+      :multiple_landlords, 
+      :other_landlords_emails
     )
   end
 end

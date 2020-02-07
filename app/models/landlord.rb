@@ -28,7 +28,9 @@ class Landlord < ApplicationRecord
                     if: :email }
   validates :email, format: { with: EMAIL_REGEX },
                     if: -> { errors[:email].blank? }
-  has_many :properties, foreign_key: :landlord_email, primary_key: :email
+  has_many :properties, foreign_key: :landlord_email,
+                        primary_key: :email,
+                        dependent: :destroy
 
   private
 

@@ -6,6 +6,15 @@ module PropertiesHelper
     Landlord.all.map(&:email) || [Property.first.landlord_email]
   end
 
+  def other_landlords_email_list(landlord_email)
+    Landlord.where.not(email: landlord_email)
+  end
+
+  def landlords_details(property)
+    landlords_email = (property.other_landlords_emails.to_s + "," + property.landlord_email).split(',')
+    Property.other_landlords(landlords_email)
+  end
+
   def tenants_email_list
     Tenant.all
   end

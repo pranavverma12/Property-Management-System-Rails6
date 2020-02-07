@@ -56,12 +56,41 @@
   </div>
 
   <div class="field">
-    <%= form.label :landlord_email %>
+    <%= form.label :landlord_email %> <span style="font-size: 11px; color: red;">*This will be your first owner of the property</span>
 
     <%= form.select :landlord_email, options_for_select(landlords_email_list, property.landlord_email.to_s) %>
 
     <% if property.errors[:landlord_email] %>
       <% property.errors[:landlord_email].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :multiple_landlords %>
+
+    <%= form.check_box :multiple_landlords%>
+
+    <% if property.errors[:multiple_landlords] %>
+      <% property.errors[:multiple_landlords].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field <%= 'no_multiple' unless property.multiple_landlords %>" id="other_landlords_emails">
+    <%= form.label :other_landlords_emails %>
+
+    <%= form.text_field :other_landlords_emails%>
+    <%= form.collection_select(:landlords_emails, other_landlords_email_list(property&.landlord_email.to_s), :email, :email, {:selected => ""}, {multiple: true}) %>
+
+    <% if property.errors[:other_landlords_emails] %>
+      <% property.errors[:other_landlords_emails].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -154,3 +183,26 @@
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  
+  $('#property_multiple_landlords').change(function() {
+    $('#other_landlords_emails').toggle()
+  });
+
+  $(".country_id").on('change', function(){
+    $('.phone_country').val($(this).val());
+  });
+
+  $(function() {
+   values = []
+    $('#property_landlords_emails').change(function() {
+      $('option:selected', $(this)).each(function() {
+        $('#property_other_landlords_emails').append(
+          values.push($(this).val())
+        );
+      });
+      $('#property_other_landlords_emails').val([...new Set(values)])
+    });
+  });
+</script>

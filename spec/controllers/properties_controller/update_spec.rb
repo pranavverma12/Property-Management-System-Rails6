@@ -131,5 +131,56 @@ RSpec.describe PropertiesController, type: :controller do
         expect(response).to render_template('errors/not_authorized')
       end
     end
+  
+    context 'when valid multiple landlords param attributes' do
+      let(:landlord1) {create(:landlord)}
+      let(:landlord2) {create(:landlord)}
+
+      let(:valid_property_attributes) do
+        {
+          property_name: 'somepropertyname',
+          property_address: 'somepropertyaddress',
+          landlord_first_name: landlord.first_name,
+          landlord_last_name: landlord.last_name,
+          landlord_email: landlord.email,
+          multiple_landlords: true,
+          other_landlords_emails: landlord1.email.to_s + ',' + landlord2.email.to_s
+        }
+      end
+      let(:params) { { id: property.id, property: valid_property_attributes } }
+
+      it 'assigns @property' do
+        subject
+        expect(assigns(:property)).to be_a Property
+      end
+
+      it 'update a Property' do
+        subject
+        property.reload
+
+        expect(property.property_name).to eq valid_property_attributes[:property_name]
+        expect(property.property_address).to eq valid_property_attributes[:property_address]
+        expect(property.landlord_first_name).to eq valid_property_attributes[:landlord_first_name]
+        expect(property.landlord_last_name).to eq valid_property_attributes[:landlord_last_name]
+        expect(property.landlord_email).to eq valid_property_attributes[:landlord_email]
+        expect(property.other_landlords_emails).to eq valid_property_attributes[:other_landlords_emails]
+        expect(property.multiple_landlords).to eq valid_property_attributes[:multiple_landlords]
+      end
+
+      it 'responds with 302 Found' do
+        subject
+        expect(response).to have_http_status(:found)
+      end
+
+      it 'redirects to properties#show' do
+        subject
+        expect(response).to redirect_to Property.last
+      end
+
+      it 'assigns flash success' do
+        subject
+        expect(flash[:success]).to eq 'Property was successfully updated.'
+      end
+    end
   end
 end

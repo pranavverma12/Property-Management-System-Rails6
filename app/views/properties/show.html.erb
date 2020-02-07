@@ -45,13 +45,15 @@
         <th>Landlord Email</th>
       </tr>
 
-       <tr>        
-          <td><%= @property.landlords.first_name %></td>
-
-          <td><%= @property.landlords.last_name %></td>
-
-          <td><%= @property.landlords.email %></td>
-      </tr>
+      <% landlords_details(@property).each do |landlord|%>
+        <tr>
+          <td><%= landlord.first_name %></td>
+          
+          <td><%= landlord.last_name %></td>
+          
+          <td><%= landlord.email %></td>
+        </tr>
+      <% end %>
 
       <%if !@property.tenants.empty? %>
         <tr>

@@ -23,7 +23,7 @@ RSpec.describe PropertiesHelper, type: :helper do
       expect(landlord).to be_nil
     end
 
-    it 'landlord email from property' do      
+    it 'landlord email from property' do
       expect(valid_property_attributes[:landlord_email]).to match(Property::LANDLORD_EMAIL_REGEX)
     end
   end
@@ -31,21 +31,21 @@ RSpec.describe PropertiesHelper, type: :helper do
   describe "Retrieve landlord email from Landlord table" do
     landlords = Landlord.all    
 
-    it 'landlords email present' do      
+    it 'landlords email present' do
       expect(landlords.map(&:email)).to match_array landlords_email_list
     end
   end
 
   describe "Retrieve tenants email from Tenants table" do
 
-    it 'list generated' do 
+    it 'list generated' do
       tenants = Tenant.all
       expect(tenants.map(&:email)).to match_array tenants_email_list
     end
   end
 
-  describe "Rent due on" do  
-    let(:landlord) {create(:landlord)} 
+  describe "Rent due on" do
+    let(:landlord) {create(:landlord)}
     let(:property) {create(:property, landlord_email: landlord.email, tenancy_start_date: '02/01/2020')}
 
     it 'day on the current month' do 
@@ -63,6 +63,34 @@ RSpec.describe PropertiesHelper, type: :helper do
       tenant.update(property_id: property.id)
       expect(update_tenants_details(property, tenant1.email).id).to eq tenant1.id
       expect(update_tenants_details(property, tenant1.email)).to be_a Tenant
+    end
+  end
+
+  describe "Email list of other available landlords" do
+    let(:landlord) {create(:landlord)}
+    let(:property) {create(:property, landlord_email: landlord.email)}
+
+    it 'expect current landlord' do
+      other_landlords = Landlord.where.not(email: landlord.email)
+      expect(other_landlords_email_list(property.landlord_email)).to eq other_landlords
+    end
+  end
+
+  describe "Landlords details available?" do
+    let(:landlord) {create(:landlord)}
+    let(:landlord1) {create(:landlord)}
+    let(:landlord2) {create(:landlord)}
+    let(:property) {create(:property, landlord_email: landlord.email, other_landlords_emails: landlord1.email.to_s + ","+ landlord2.email.to_s)}
+    let(:property2) {create(:property, landlord_email: landlord.email)}
+
+    it 'property has multiple landlords' do
+      landlords_emails = (landlord1.email.to_s + ','+ landlord2.email.to_s + ','+ landlord.email).split(',')
+      expect(landlords_details(property).map(&:email)).to match_array landlords_emails
+    end
+
+    it 'property has no multiple landlords' do
+      landlords_emails = [landlord.email]
+      expect(landlords_details(property2).map(&:email)).to match_array landlords_emails
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_02_201717) do
+ActiveRecord::Schema.define(version: 2020_02_06_193035) do
 
   create_table "landlords", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "first_name"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2020_02_02_201717) do
     t.float "tenancy_monthly_rent"
     t.boolean "rented", default: false
     t.integer "tenant_id"
+    t.boolean "multiple_landlords", default: false
+    t.text "other_landlords_emails"
     t.index ["property_name"], name: "index_properties_on_property_name", unique: true
   end
 
