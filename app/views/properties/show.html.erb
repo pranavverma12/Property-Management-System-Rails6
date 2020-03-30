@@ -5,15 +5,13 @@
     <%= @property.property_name %>
   </h2>
 
-  <p>
+  <p style="float: left;">
     <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>New Property'.html_safe, new_property_path, class: "addButton" %>
   </p>
 
-  <% if @property.rented %>
-    <p>
-      <%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>Unrent Property'.html_safe, unrent_property_path(id: @property.id), class: "destroyButton" %>
-    </p>
-  <% end %>
+  <p style="float: right;">
+    <%= link_to '<i class="fa fa-plus-circle" aria-hidden="true"></i>Add Tenant'.html_safe, property_tenant_path(@property.id), class: "addButton" %>
+  </p>
 
   <table class="scaffoldDataTable">
     <tbody>
@@ -54,8 +52,8 @@
           <td><%= landlord.email %></td>
         </tr>
       <% end %>
-
-      <%if !@property.alltenants.empty? %>
+      
+      <%if !@property.tenants.empty? %>
         <tr>
           <th>Tenant first name</th>
           
@@ -68,9 +66,11 @@
           <th>Security Deposit</th>
           
           <th>Monthly Rent</th>
+
+          <th>Unrent<th>
         </tr>
 
-        <% @property.alltenants.each do |tenant|%>
+        <% @property.tenants.each do |tenant|%>
           <tr>
             <td><%= tenant.first_name %></td>
             
@@ -83,6 +83,8 @@
             <td><%= @property.tenancy_security_deposit %></td>
             
             <td><%= @property.tenancy_monthly_rent %></td>
+
+            <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, unrent_property_tenant_path(tenant_id: tenant.id, property_id: @property.id), method: :get, data: { confirm: "Are you sure want to unrent #{tenant.full_name} from this property?" }, title: "Unrent Tenant" %></td>
           </tr>
         <%end%>
       <% end %>

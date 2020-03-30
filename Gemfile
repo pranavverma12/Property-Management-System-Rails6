@@ -10,9 +10,9 @@ ruby '2.6.5'
 gem 'rails', '6.0.2.1'
 
 # Use sqlite3 as the database for Active Record
-# gem 'sqlite3'#, '1.4.2'
+gem 'sqlite3'#, '1.4.2'
 # gem 'sqlite3', git: 'https://github.com/larskanis/sqlite3-ruby', branch: 'add-gemspec'
-gem 'mysql2', '>= 0.3.18', '< 0.6.0'
+# gem 'mysql2', '>= 0.3.18', '< 0.6.0'
 
 # Use Puma as the app server
 gem 'puma', '4.3.1'

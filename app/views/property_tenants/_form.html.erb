@@ -1,0 +1,75 @@
+<%= form_with(model: property_tenants, local: true) do |form| %>
+  
+  <%= hidden_field :property_tenant, :property_id, :value => @property.id%>
+
+  <div class="field">
+    <%= form.label :tenants_emails %>
+
+    <%= form.hidden_field :tenant_id %>
+    <%= form.select(:tenant_id, options_for_select(tenants_email_list), :prompt => 'Select One' )%>
+
+    <% if property_tenants.errors[:tenant_id] %>
+      <% property_tenants.errors[:tenant_id].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_start_date %>
+
+    <%= form.date_field :tenancy_start_date, as: :date, value: form.object.try(:strftime,"%m/%d/%Y") %>    
+
+    <% if property_tenants.errors[:tenancy_start_date] %>
+      <% property_tenants.errors[:tenancy_start_date].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_monthly_rent %>
+
+    <%= form.number_field :tenancy_monthly_rent %>    
+
+    <% if property_tenants.errors[:tenancy_monthly_rent] %>
+      <% property_tenants.errors[:tenancy_monthly_rent].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenancy_security_deposit %>
+
+    <%= form.number_field :tenancy_security_deposit %>
+
+    <% if property_tenants.errors[:tenancy_security_deposit] %>
+      <% property_tenants.errors[:tenancy_security_deposit].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+  <% if property_tenants.persisted? %>
+      <button type="submit" name="commit" class="addButton">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Property Tenants
+      </button>
+
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, property, class: "destroyButton" %>
+    <% else %>
+      <button type="submit" name="commit" class="addButton">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Property Tenants
+    </button>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, property, class: "destroyButton" %>
+    <% end %>
+<% end %>

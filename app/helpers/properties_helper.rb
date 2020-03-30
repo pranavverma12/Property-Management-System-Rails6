@@ -16,7 +16,7 @@ module PropertiesHelper
   end
 
   def tenants_email_list
-    Tenant.all
+    Tenant.all.map { |tenant| [tenant.email, tenant.id] }
   end
 
   def unrent_tenant_params
@@ -33,14 +33,12 @@ module PropertiesHelper
     property&.tenancy_start_date&.strftime('%d').to_s + ' ' + Time.now.strftime('%B %Y').to_s
   end
 
-  def update_tenants_details(property, tenant_emails)
-    property.alltenants.each { |t| t.update(property_id: nil) } unless property.alltenants.empty?
-
-    property.alltenants.each { |tenant|
-                                tenant.nil? ? nil : tenant.update(property_id: property.id)
-                              }
-
-    property.update(rented: true) unless property.alltenants.map(&:email).blank?    
+  def update_tenants_details(property, values)
+    property.update!(tenancy_start_date: values[:tenancy_start_date], 
+                    tenancy_monthly_rent: values[:tenancy_monthly_rent],
+                    tenancy_security_deposit: values[:tenancy_security_deposit],
+                    rented: true
+                  )
   end
 
   def check_tenancy_records(property, param, return_type)
@@ -58,6 +56,6 @@ module PropertiesHelper
                          'tenancy_security_deposit',
                          'Please rent the valid monthly rent for tenants') if param[:tenancy_security_deposit] == ''
 
-    render return_type, status: :unprocessable_entity
+    render :new, status: :unprocessable_entity
   end
 end

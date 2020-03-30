@@ -34,9 +34,9 @@
           
           <td><%= property.landlord_email %></td>
           
-          <td><%= property.alltenants.map { |t| t.full_name }.join(', ') %></td>
+          <td><%= property.tenants.map { |t| t.full_name }.join(', ') %></td>
           
-          <td><%= property.alltenants.map(&:email).join(', ') %></td>
+          <td><%= property.tenants.map(&:email).join(', ') %></td>
           
           <td><%= rent_due_on(property) %></td>         
           

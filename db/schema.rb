@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_193035) do
+ActiveRecord::Schema.define(version: 2020_03_26_183521) do
 
-  create_table "landlords", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "landlords", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_193035) do
     t.index ["email"], name: "index_landlords_on_email"
   end
 
-  create_table "properties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "properties", force: :cascade do |t|
     t.string "property_name", null: false
     t.string "property_address", null: false
     t.string "landlord_first_name", null: false
@@ -39,7 +39,17 @@ ActiveRecord::Schema.define(version: 2020_02_06_193035) do
     t.index ["property_name"], name: "index_properties_on_property_name", unique: true
   end
 
-  create_table "tenants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "property_tenants", force: :cascade do |t|
+    t.integer "property_id", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["property_id", "tenant_id"], name: "index_property_tenants_on_property_id_and_tenant_id", unique: true
+    t.index ["property_id"], name: "index_property_tenants_on_property_id"
+    t.index ["tenant_id"], name: "index_property_tenants_on_tenant_id"
+  end
+
+  create_table "tenants", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -48,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_193035) do
     t.integer "property_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
@@ -56,4 +66,6 @@ ActiveRecord::Schema.define(version: 2020_02_06_193035) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "property_tenants", "properties"
+  add_foreign_key "property_tenants", "tenants"
 end

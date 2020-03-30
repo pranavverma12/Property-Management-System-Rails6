@@ -32,6 +32,9 @@ class Landlord < ApplicationRecord
                         primary_key: :email,
                         dependent: :destroy
 
+  # has_many :property_tenants
+  # has_many :properties, through: property_tenants
+
   private
 
   def strip_whitespace

@@ -11,7 +11,7 @@
 #
 
 default: &default
-  adapter: mysql2
+  adapter: sqlite3
   encoding: utf8
   pool: 5
   username: "username"
@@ -57,4 +57,4 @@ test:
 #
 production:
   <<: *default
-  password: <%= ENV['NUA-MESSAGING_DATABASE_PASSWORD'] %>
+  password: <%= ENV['TOPFLOOR_DATABASE_PASSWORD'] %>

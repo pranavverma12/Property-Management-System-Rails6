@@ -4,9 +4,13 @@ Rails.application.routes.draw do
   resources :landlords
   resources :tenants
   resources :users
+  
+  resources :property_tenants do
+    get 'new' => 'property_tenants#new', on: :member
+    get 'unrent' => 'property_tenants#unrent', on: :member
+  end
 
   resources :properties do
-    get 'unrent' => 'properties#unrent', on: :member
     get 'advertised_monthly_rent' => 'properties#advertised_monthly_rent', on: :collection
     get 'tenancy_rent_record' => 'properties#tenancy_rent_record', on: :collection
   end

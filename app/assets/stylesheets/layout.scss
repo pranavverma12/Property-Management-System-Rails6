@@ -26,7 +26,7 @@ body {
       height: 100%;
       border-right: 0;
       box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .05);
-      background-color: $dark-blue;
+      background-color: $dark-red;
 
       #sidebar-header {
         height: 66px;
@@ -57,7 +57,7 @@ body {
       }
 
       #sidebar-nav {
-        background-color: #FFF;
+        background-color: #107e28;
         height: 100%;
 
         #sidebar-nav-user {
@@ -75,7 +75,7 @@ body {
           }
 
           a {
-            color: $dark-blue;
+            color: $dark-green;
             text-decoration: none;
             cursor: pointer;
             font-size: 14px;
@@ -109,14 +109,13 @@ body {
             padding-right: 5px;
 
             &.border {
-              border-bottom: 1px $dark-blue solid;
+              border-bottom: 1px white solid;
               margin: 25px;
             }
 
             a {
               i {
                 margin-right: 10px;
-                color: $dark-blue !important;
               }
 
               color: $nav-link;
@@ -156,6 +155,8 @@ body {
           font-weight: bold;
           font-size: 24px;
           margin-bottom: 40px;
+          color: $dark-blue;
+          text-decoration: underline;
 
           &.breadcrumbs {
             a {
@@ -236,7 +237,7 @@ body {
           th {
             font-size: 18px;
             color: #FFF;
-            background-color: $dark-blue;
+            background-color: $dark-green;
 
             &:first-child {
               border-top-left-radius: 20px;

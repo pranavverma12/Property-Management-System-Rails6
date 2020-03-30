@@ -1,0 +1,11 @@
+<section class='scaffold'>
+  <h2 class="breadcrumbs">
+    <%= link_to "Properties", properties_path %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <%= @property.property_name %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    Tenants
+  </h2>
+
+  <%= render "form", property_tenants: @property_tenant, property: @property %>
+</section>
