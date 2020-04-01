@@ -2,18 +2,16 @@
   <h2 class="breadcrumbs">
     <%= link_to "Properties", properties_path %>
     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-    <%= @property.property_name %>
+    <%= link_to @property.property_name, @property %>
     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-    Tenants
+    Landlords
   </h2>
 
   <table class="scaffoldDataTable">
     <tbody>
-      <%= render 'property_tenants_details', tenants: @existing_property_tenants%>
+      <%= render 'property_landlords_details', landlords: @existing_property_landlords%>
     </tbody>
   </table>
 
-  <h3 style="color: #1da5a5; text-align: center;"> Add New Tenants Below:</h3>
-
-  <%= render "form", property_tenants: @property_tenant, property: @property %>
+  <%= render "form", property_landlords: @property_landlord %>
 </section>

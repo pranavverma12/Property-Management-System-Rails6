@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   resources :landlords
   resources :tenants
   resources :users
-  
+
+  resources :property_landlords, only: %i[update create] do
+    get 'new' => 'property_landlords#new', on: :member
+    get 'remove_owner' => 'property_landlords#destroy', on: :member
+  end
+
   resources :property_tenants do
     get 'new' => 'property_tenants#new', on: :member
     get 'unrent' => 'property_tenants#unrent', on: :member

@@ -10,7 +10,10 @@ class PropertiesController < ApplicationController
     @properties = Property.all
   end
 
-  def show; end
+  def show
+    @landlords = @property.landlords
+    @tenants = @property.tenants
+  end
 
   def new
     @property = Property.new
@@ -20,13 +23,26 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
-    check_tenancy_records(@property, property_params, 'new') # to check if valid tenancy details has been passed or not
+
+    check_landlord_id(@property, params, 'new')
 
     return unless @property.errors.messages.blank?
 
-    if @property.save
-      flash[:success] = 'Property was successfully created.'
-      redirect_to @property
+    landlord = Landlord.find(params[:property][:landlord_id])
+
+    if landlord.present?
+      if @property.save!
+        @property_landlord = @property.property_landlords.new(landlord_id: landlord.id)
+
+        if @property_landlord.save
+          flash[:success] = 'Property was successfully created.'
+          redirect_to @property
+        else
+          render :new, status: :unprocessable_entity
+        end
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -71,9 +87,6 @@ class PropertiesController < ApplicationController
     params.require(:property).permit(
       :property_name,
       :property_address,
-      :landlord_first_name,
-      :landlord_last_name,
-      :landlord_email,
       :tenancy_security_deposit,
       :tenancy_monthly_rent
     )

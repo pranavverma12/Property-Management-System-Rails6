@@ -34,7 +34,7 @@
   <div class="field">
     <%= form.label :tenancy_monthly_rent %>
 
-    <%= form.number_field :tenancy_monthly_rent %>    
+    <%= form.number_field :tenancy_monthly_rent %>
 
     <% if property_tenants.errors[:tenancy_monthly_rent] %>
       <% property_tenants.errors[:tenancy_monthly_rent].each do |message| %>

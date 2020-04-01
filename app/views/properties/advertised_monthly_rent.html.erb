@@ -27,9 +27,9 @@
             <pre><%= property.property_address %></pre>
           </td>
           
-          <td><%= property.landlords.full_name %></td>
+          <td><%= landlords_full_name(property) %></td>
           
-          <td><%= property.landlord_email %></td>
+          <td><%= landlords_emails(property) %></td>
           
           <td><%= property&.tenancy_security_deposit || "N/A" %></td>
           

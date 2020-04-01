@@ -30,9 +30,9 @@
             <pre><%= property.property_address %></pre>
           </td>
           
-          <td><%= property.landlords.full_name %></td>
+          <td><%= landlords_full_name(property) %></td>
           
-          <td><%= property.landlord_email %></td>
+          <td><%= landlords_emails(property) %></td>
           
           <td><%= property.tenants.map { |t| t.full_name }.join(', ') %></td>
           

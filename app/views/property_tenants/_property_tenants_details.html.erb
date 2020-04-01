@@ -1,0 +1,35 @@
+<tr>
+  <th>Tenant first name</th>
+  
+  <th>Tenant last name</th>
+  
+  <th>Tenant email</th>
+  
+  <th>Rented On</th>
+  
+  <th>Security Deposit</th>
+  
+  <th>Monthly Rent</th>
+
+  <th>Unrent<th>
+</tr>
+
+<% tenants.each do |tenant|%>
+  <tr>
+    <td>
+      <%= link_to tenant.first_name, tenant, {:style=>'color: black; text-decoration: none'} %>
+    </td>
+    
+    <td><%= tenant.last_name %></td>
+    
+    <td><%= tenant.email %></td>
+    
+    <td><%= @property&.tenancy_start_date&.strftime('%d %B %Y') %></td>
+    
+    <td><%= @property.tenancy_security_deposit %></td>
+    
+    <td><%= @property.tenancy_monthly_rent %></td>
+
+    <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, unrent_property_tenant_path(tenant_id: tenant.id, property_id: @property.id), method: :get, data: { confirm: "Are you sure want to unrent #{tenant.full_name} from this property?" }, title: "Unrent Tenant" %></td>
+  </tr>
+<% end %>

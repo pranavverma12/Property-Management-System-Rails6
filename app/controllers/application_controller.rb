@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from ActiveRecord::RecordNotUnique  do |_exception|
+    flash[:error] = 'This details is already exist. Please try to add different details.'
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def adding_custom_errors(model_name, field_name, message)
     model_name.errors.add(field_name.to_s, message)
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_183521) do
+ActiveRecord::Schema.define(version: 2020_03_31_143740) do
 
   create_table "landlords", force: :cascade do |t|
     t.string "first_name"
@@ -24,19 +24,23 @@ ActiveRecord::Schema.define(version: 2020_03_26_183521) do
   create_table "properties", force: :cascade do |t|
     t.string "property_name", null: false
     t.string "property_address", null: false
-    t.string "landlord_first_name", null: false
-    t.string "landlord_last_name", null: false
-    t.string "landlord_email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "tenancy_start_date"
     t.float "tenancy_security_deposit"
     t.float "tenancy_monthly_rent"
     t.boolean "rented", default: false
-    t.text "tenants_emails"
-    t.boolean "multiple_landlords", default: false
-    t.text "other_landlords_emails"
     t.index ["property_name"], name: "index_properties_on_property_name", unique: true
+  end
+
+  create_table "property_landlords", force: :cascade do |t|
+    t.integer "property_id", null: false
+    t.integer "landlord_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landlord_id"], name: "index_property_landlords_on_landlord_id"
+    t.index ["property_id", "landlord_id"], name: "index_property_landlords_on_property_id_and_landlord_id", unique: true
+    t.index ["property_id"], name: "index_property_landlords_on_property_id"
   end
 
   create_table "property_tenants", force: :cascade do |t|
@@ -66,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_03_26_183521) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "property_landlords", "landlords"
+  add_foreign_key "property_landlords", "properties"
   add_foreign_key "property_tenants", "properties"
   add_foreign_key "property_tenants", "tenants"
 end

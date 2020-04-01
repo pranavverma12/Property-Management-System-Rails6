@@ -10,7 +10,7 @@ ruby '2.6.5'
 gem 'rails', '6.0.2.1'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'#, '1.4.2'
+gem 'sqlite3' # , '1.4.2'
 # gem 'sqlite3', git: 'https://github.com/larskanis/sqlite3-ruby', branch: 'add-gemspec'
 # gem 'mysql2', '>= 0.3.18', '< 0.6.0'
 
@@ -68,8 +68,8 @@ group :development do
   # Access an interactive console on exception pages or by calling
   # 'console' anywhere in the code.
   gem 'listen', '3.1.5'
-  gem 'web-console', '4.0.1'
   gem 'tzinfo-data'
+  gem 'web-console', '4.0.1'
   # Spring speeds up development by keeping your application running
   # in the background. Read more: https://github.com/rails/spring
   gem 'spring', '2.1.0'

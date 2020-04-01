@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
-  attr_accessor :tenant_email
+  attr_accessor :landlord_id
 
   PROPERTY_NAME_MAX_LENGTH = 100
   PROPERTY_ADDRESS_MAX_LENGTH = 500
@@ -20,32 +20,12 @@ class Property < ApplicationRecord
   validates :property_address, presence: true
   validates :property_address, length: { maximum: PROPERTY_ADDRESS_MAX_LENGTH,
                                          if: :property_address }
-  validates :landlord_first_name, presence: true
-  validates :landlord_first_name, length: {
-    maximum: LANDLORD_FIRST_NAME_MAX_LENGTH, if: :landlord_first_name
-  }
-  validates :landlord_last_name, presence: true
-  validates :landlord_last_name, length: {
-    maximum: LANDLORD_LAST_NAME_MAX_LENGTH, if: :landlord_last_name
-  }
-  validates :landlord_email, presence: true
-  validates :landlord_email, length: { maximum: LANDLORD_EMAIL_MAX_LENGTH,
-                                       if: :landlord_email }
-  validates :landlord_email, format: { with: LANDLORD_EMAIL_REGEX },
-                            if: -> { errors[:landlord_email].blank? }
 
-  belongs_to :landlords, :class_name => 'Landlord',
-                        primary_key: :email,
-                        foreign_key: :landlord_email
-
-  # has_many :alltenants, :class_name => 'Tenant', foreign_key: :property_id # custom association for the tenants
-
-  scope :other_landlords, ->(emails) {Landlord.where("email IN (?)", emails)}
+  validates_presence_of :tenancy_monthly_rent, :tenancy_security_deposit
 
   has_many :property_tenants
   has_many :tenants, through: :property_tenants
 
-  def alltenants
-    Tenant.where("email IN (?)", tenants_emails&.split(","))
-  end
+  has_many :property_landlords
+  has_many :landlords, through: :property_landlords
 end

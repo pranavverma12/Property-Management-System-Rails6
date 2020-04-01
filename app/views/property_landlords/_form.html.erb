@@ -1,0 +1,25 @@
+<%= form_with(model: property_landlords, local: true) do |form| %>
+  
+  <%= hidden_field :property_landlord, :property_id, :value => @property.id%>
+
+  <div class="field">
+    <%= form.label :landlord_emails %>
+
+    <%= form.hidden_field :landlord_id %>
+    <%= form.select(:landlord_id, options_for_select(other_landlords_email_list(@property)), :prompt => 'Select One' )%>
+
+    <% if property_landlords.errors[:landlord_id] %>
+      <% property_landlords.errors[:landlord_id].each do |message| %>
+        <p class="errorMessage">
+          <%= message %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <button type="submit" name="commit" class="addButton">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Property Tenants
+    </button>
+    <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, @property, class: "destroyButton" %>
+<% end %>

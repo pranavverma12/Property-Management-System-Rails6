@@ -25,15 +25,15 @@ class Landlord < ApplicationRecord
                         if: -> { errors[:last_name].blank? }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :email, length: { maximum: EMAIL_MAX_LENGTH,
-                    if: :email }
+                              if: :email }
   validates :email, format: { with: EMAIL_REGEX },
                     if: -> { errors[:email].blank? }
   has_many :properties, foreign_key: :landlord_email,
                         primary_key: :email,
                         dependent: :destroy
 
-  # has_many :property_tenants
-  # has_many :properties, through: property_tenants
+  has_many :property_landlords
+  has_many :properties, through: :property_landlords
 
   private
 

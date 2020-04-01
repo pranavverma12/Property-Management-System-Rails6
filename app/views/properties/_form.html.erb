@@ -1,11 +1,11 @@
-<%= form_with(model: property, local: true) do |form| %>
+<%= form_with(model: @property, local: true) do |form| %>
   <div class="field">
     <%= form.label :property_name %>
     
-    <%= form.text_field :property_name %>
+    <%= form.text_field :property_name, :required => true %>
 
-    <% if property.errors[:property_name] %>
-      <% property.errors[:property_name].each do |message| %>
+    <% if @property.errors[:property_name] %>
+      <% @property.errors[:property_name].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -16,10 +16,10 @@
   <div class="field">
     <%= form.label :property_address %>
 
-    <%= form.text_area :property_address, rows: 10 %>
+    <%= form.text_area :property_address, rows: 10, :required => true %>
 
-    <% if property.errors[:property_address] %>
-      <% property.errors[:property_address].each do |message| %>
+    <% if @property.errors[:property_address] %>
+      <% @property.errors[:property_address].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -28,69 +28,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :landlord_first_name %>
+    <%= form.label :landlord_emails %>
 
-    <%= form.text_field :landlord_first_name %>
+    <%= form.select(:landlord_id, options_for_select(other_landlords_email_list(@property)), :prompt => 'Select One', :required => true )%>
 
-    <% if property.errors[:landlord_first_name] %>
-      <% property.errors[:landlord_first_name].each do |message| %>
-        <p class="errorMessage">
-          <%= message %>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= form.label :landlord_last_name %>
-
-    <%= form.text_field :landlord_last_name %>
-
-    <% if property.errors[:landlord_last_name] %>
-      <% property.errors[:landlord_last_name].each do |message| %>
-        <p class="errorMessage">
-          <%= message %>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= form.label :landlord_email %> <span style="font-size: 11px; color: red;">*This will be your first owner of the property</span>
-
-    <%= form.select :landlord_email, options_for_select(landlords_email_list, property.landlord_email.to_s) %>
-
-    <% if property.errors[:landlord_email] %>
-      <% property.errors[:landlord_email].each do |message| %>
-        <p class="errorMessage">
-          <%= message %>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :multiple_landlords %>
-
-    <%= form.check_box :multiple_landlords%>
-
-    <% if property.errors[:multiple_landlords] %>
-      <% property.errors[:multiple_landlords].each do |message| %>
-        <p class="errorMessage">
-          <%= message %>
-        </p>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="field <%= 'no_multiple' unless property.multiple_landlords %>" id="other_landlords_emails">
-    <%= form.label :other_landlords_emails %>
-
-    <%= form.text_field :other_landlords_emails%>
-    <%= form.collection_select(:landlords_emails, other_landlords_email_list(property&.landlord_email.to_s), :email, :email, {:selected => ""}, {multiple: true}) %>
-
-    <% if property.errors[:other_landlords_emails] %>
-      <% property.errors[:other_landlords_emails].each do |message| %>
+    <% if @property.errors[:landlord_id] %>
+      <% @property.errors[:landlord_id].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -101,10 +44,10 @@
   <div class="field">
     <%= form.label :tenancy_monthly_rent %>
 
-    <%= form.number_field :tenancy_monthly_rent %>    
+    <%= form.number_field :tenancy_monthly_rent, :required => true %>    
 
-    <% if property.errors[:tenancy_monthly_rent] %>
-      <% property.errors[:tenancy_monthly_rent].each do |message| %>
+    <% if @property.errors[:tenancy_monthly_rent] %>
+      <% @property.errors[:tenancy_monthly_rent].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -115,10 +58,10 @@
   <div class="field">
     <%= form.label :tenancy_security_deposit %>
 
-    <%= form.number_field :tenancy_security_deposit %>
+    <%= form.number_field :tenancy_security_deposit, :required => true %>
 
-    <% if property.errors[:tenancy_security_deposit] %>
-      <% property.errors[:tenancy_security_deposit].each do |message| %>
+    <% if @property.errors[:tenancy_security_deposit] %>
+      <% @property.errors[:tenancy_security_deposit].each do |message| %>
         <p class="errorMessage">
           <%= message %>
         </p>
@@ -127,12 +70,12 @@
   </div>
 
   <div class="actions">
-    <% if property.persisted? %>
+    <% if @property.persisted? %>
       <button type="submit" name="commit" class="addButton">
         <i class="fa fa-floppy-o" aria-hidden="true"></i>Update Property
       </button>
 
-      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, property, class: "destroyButton" %>
+      <%= link_to '<i class="fa fa-times-circle" aria-hidden="true"></i>Cancel'.html_safe, @property, class: "destroyButton" %>
     <% else %>
       <button type="submit" name="commit" class="addButton">
         <i class="fa fa-floppy-o" aria-hidden="true"></i>Create Property

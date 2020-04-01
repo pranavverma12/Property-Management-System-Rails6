@@ -1,5 +1,5 @@
 <section id='login-form-section'>
-  <h2>Log in to your account to continue</h2>
+  <h2 style="background: white; padding: 25px; margin-bottom: 0;">Log in to your account to continue</h2>
 
   <%= form_tag(login_path, method: :post, class: "login-form") do %>
     <div class="form-control <%= @session&.errors["username"] ? "error" : "" %>">

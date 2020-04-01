@@ -27,8 +27,6 @@
         <th>Monthly Rent</th>
         
         <th>Rented</th>
-
-        <th>Multiple Landlords</th>
         
         <th colspan="2">Actions</th>
       </tr>
@@ -43,9 +41,9 @@
             <pre><%= property.property_address %></pre>
           </td>
           
-          <td><%= property.landlords.full_name %></td>
+          <td><%= landlords_full_name(property) %></td>
           
-          <td><%= property.landlord_email %></td>
+          <td><%= landlords_emails(property) %></td>
 
           <td><%= property.tenants.map { |t| t&.full_name }.join(', ') %></td>
           
@@ -58,8 +56,6 @@
           <td><%= property&.tenancy_monthly_rent %></td>
           
           <td><%= property.rented %></td>
-
-          <td><%= property.multiple_landlords %></td>
           
           <td><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_property_path(property), title: "Edit Property" %></td>
           
