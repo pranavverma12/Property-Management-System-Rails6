@@ -1,4 +1,4 @@
-# Tenancy Database
+# Project Management System
 
 ## Description
 This project is to product an overly simple Property rental/tenancy database tracking system.
@@ -38,7 +38,7 @@ Sublime
 
 This project include a vscode config file that will format code on-save using Rubocop.
 
-## Initial Project
+## About Database
 This project is a database of properties and tenants managed by a single Property Letting Agent *(the customer)*.
 
 The initial project contains the following data models (including model unit tests):
