@@ -1,6 +1,7 @@
 @import 'colours';
 
 .addButton,
+.addmore,
 .defaultButton,
 .destroyButton {
     padding: .25rem .7rem;
@@ -16,6 +17,19 @@
 
     &:hover {
         cursor: pointer;
+    }
+}
+
+.addmore{
+    border-color: $addmore-button-background;
+    background-color: $addmore-button-background;
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+
+    &:hover {
+        background-color: $addmore-button-background-hover;
+        border-color: $addmore-button-background-hover;
     }
 }
 

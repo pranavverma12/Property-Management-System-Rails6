@@ -5,6 +5,8 @@
 @import 'colours';
 
 body.sessions {
+    background-image: url(https://source.unsplash.com/yFV39g6AZ5o/1600x900);
+
     #login-form-section {
         width: 500px;
         margin: 0 auto;
@@ -67,5 +69,19 @@ body.sessions {
                 margin-top: 35px;
             }
         }
+    }
+
+    section#sidebar{
+        background: transparent !important;
+    }
+
+    #mainfooter{
+        text-align: right;
+        padding-right: 25px;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        color: white;
     }
 }
